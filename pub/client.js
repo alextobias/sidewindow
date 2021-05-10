@@ -4,39 +4,58 @@ console.log("Started client script");
 let addrField = document.getElementById("addrField");
 let portField = document.getElementById("portField");
 let textField = document.getElementById("textField")
+let roomField = document.getElementById("roomField")
 
 connectButton = document.getElementById("connectButton");
 sendButton = document.getElementById("sendMessageButton");
 
 connectionStatus = document.getElementById("connectionStatus");
 
+console.log('window')
+console.log(window.location)
 
-let client_soc;
+
+let client_soc = io();
 
 initConnection = function () {
-    // console.log(addrField.value);
-    // console.log(portField.value);
-    if(addrField.value == "" || portField.value == "") {
+    console.log("Initializing connection")
+    console.log(`addr: ${addrField.value}`)
+    console.log(`port: ${portField.value}`)
+    console.log(`room: ${roomField.value}`)
+    if(addrField.value == "") {
         console.log("Invalid connection params");
         connectionStatus.innerText = "Error! Invalid connection parameters.";
         return
     }
+    connectionAddr = addrField.value + (portField.value != "" ? ":" + portField.value : "")
+    console.log(`connectionAddr: ${connectionAddr}`)
 
-    // if(addrField.value == "localhost") {
-    //     connectionAddr = "http://" + addrField.value + ":" + portField.value
-    // } else {
-    //     connectionAddr = "" + addrField.value + ":" + portField.value
-    //     // I have a hunch that this only works when not localhost? but not sure
-    // }
-    connectionAddr = "http://" + addrField.value + ":" + portField.value
-    console.log(connectionAddr)
+    // begin connection
+    const connection_options = {
+        reconnection: true,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        timeout: 20000,
+        query: {
+            type: "browser",
+            room: roomField.value
+        }
+    }
+    // debug to log connection options
+    // console.log(`Connection options:`);
+    // console.log(connection_options);
+
     client_soc = io(connectionAddr)
     connectionStatus.innerText = "Attempting to connect to: " + connectionAddr;
 
-    client_soc.on("server-ack", (arg) => {
+    client_soc.on("server-ack", (msg) => {
+        if(msg == "No Room") {
+            connectStatus.innerText = "Room does not exist."
+        }
+        elseif(msg)
         connectionStatus.innerText = "Connection established at: " + connectionAddr
         console.log("Got 'server-ack' event from server!")
-        console.log("[server] " + arg)
+        console.log("[server] " + msg)
     })
 
     client_soc.on("server-msg", (msg) => {
