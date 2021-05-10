@@ -1,2 +1,2 @@
-# sideview-server
-Server and browser client for my SideView extension project
+# SideWindow
+Server and browser client for my SideWindow extension project
