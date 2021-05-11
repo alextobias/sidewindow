@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 
 app.get('/debug', (req, res) => {
     // res.send(JSON.stringify(rooms.map( r => r.id)))
-    res.send(JSON.stringify(rooms.map(r => r.id)))
+    res.send(JSON.stringify(rooms))
 })
 
 io_server.on('connection', (socket) => {
@@ -48,21 +48,21 @@ io_server.on('connection', (socket) => {
         console.log("> received connection from extension")
         console.log("> extension socket id is: " + socket.id)
         console.log("> creating room " + socket.id)
-        let room = {
-            "id":socket.id,
-            "extension": socket
-        }
-        rooms.push(room)
+        const room_id = socket.id
+        rooms.push(room_id)
     } else if (socket.handshake.query.type == "browser") {
         console.log("> received connection from browser")
         console.log("> browser socket id is : " + socket.id)
         console.log("> checking if any rooms match id")
-        // take this functionality out, only for testing
-        let room = {
-            "id": socket.id,
-            "extension": socket
-        }
-        rooms.push(room)
+        let room_id  = socket.handshake.query.room
+        if (!rooms.includes(room_id)) {
+            console.log(`> No room ${room_id} found.`)
+            socket.emit("server-ack", "No room")
+            socket.disconnect()
+        } else {
+            console.log(`> Room ${room_id} match!`)
+            socket.emit("server-ack", `Room ${socket.id} exists!`);
+        } 
     }
 
 
