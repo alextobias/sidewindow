@@ -11,11 +11,12 @@ sendButton = document.getElementById("sendMessageButton");
 
 connectionStatus = document.getElementById("connectionStatus");
 
-console.log('window')
-console.log(window.location)
+// console.log('window')
+// console.log(window.location)
 
 
-let client_soc = io();
+// let client_soc = io();
+let client_soc;
 
 initConnection = function () {
     console.log("Initializing connection")
@@ -45,17 +46,18 @@ initConnection = function () {
     // console.log(`Connection options:`);
     // console.log(connection_options);
 
-    client_soc = io(connectionAddr)
+    client_soc = io(connectionAddr, connection_options)
     connectionStatus.innerText = "Attempting to connect to: " + connectionAddr;
 
     client_soc.on("server-ack", (msg) => {
         if(msg == "No Room") {
             connectStatus.innerText = "Room does not exist."
         }
-        elseif(msg)
-        connectionStatus.innerText = "Connection established at: " + connectionAddr
-        console.log("Got 'server-ack' event from server!")
-        console.log("[server] " + msg)
+        else if(msg) {
+            connectionStatus.innerText = "Connection established at: " + connectionAddr
+            console.log("Got 'server-ack' event from server!")
+            console.log("[server] " + msg)
+        }
     })
 
     client_soc.on("server-msg", (msg) => {
