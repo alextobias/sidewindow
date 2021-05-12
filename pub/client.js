@@ -60,16 +60,20 @@ initConnection = function () {
         }
     })
 
-    client_soc.on("server-msg", (msg) => {
-        console.log("[server-msg]: " + msg);
+    client_soc.on("extension-msg", (msg) => {
+        console.log("[extension-msg]: " + msg);
         // let textfield = document.getElementById("textField");
         // console.log(textfield)
         textField.innerText = msg;
     })
 
-    client_soc.on("server-edits", (msg) => {
-        console.log("[server-edits]: " + msg);
+    client_soc.on("extension-edits", (msg) => {
+        console.log("[extension-edits]: " + msg);
         textField.innerText = msg;
+    })
+
+    client_soc.onAny((ev, arg) => {
+        console.log(`> Browser socket: got ${ev} event with args ${arg}`)
     })
 
     // event listener to send edits back to server

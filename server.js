@@ -36,40 +36,76 @@ app.get('/debug', (req, res) => {
 })
 
 io_server.on('connection', (socket) => {
-
     sockets.push(socket)
     console.log('> New Connection from ' + socket.id);
     console.log('> Handshake params:')
-    io_server.emit("server-ack", "hello, new client!")
+    // io_server.emit("server-ack", "hello, new client!")
     console.log(socket.handshake.query)
-    io_server.emit("server-msg", "Sending this server-msg to ya")
+    // io_server.emit("server-msg", "Sending this server-msg to ya")
 
     if(socket.handshake.query.type == "extension") {
+        let extension_socket = socket;
         console.log("> received connection from extension")
-        console.log("> extension socket id is: " + socket.id)
-        console.log("> creating room " + socket.id)
-        const room_id = socket.id
+        console.log("> extension socket id is: " + extension_socket.id)
+        console.log("> creating room " + extension_socket.id)
+        extension_socket.emit("server-ack", "hello, new extension!")
+        // extension_socket.emit("server-msg", "Sending this server-msg to ya")
+        const room_id = extension_socket.id.slice(0,4)
+        console.log(">>>> ROOM ID: " + room_id)
         rooms.push(room_id)
+        // force it to join this room
+        extension_socket.join(room_id)
+        console.log(`> This extension socket is in rooms ${String(extension_socket.rooms)}`)
+
+        extension_socket.on("extension-msg", (msg) => {
+            console.log(`> [extension-msg] received message: "${msg}" from extension ${extension_socket.id}`)
+            console.log(`> [extension-msg] now broadcasting: "${msg}" to room ${room_id}`)
+            extension_socket.to(room_id).emit("extension-msg", msg)
+            // io_server.to(room_id).emit("extension-msg", msg)// 
+        })
+
+        extension_socket.on("extension-edits", (msg) => {
+            console.log(`> [extension-edits] received new edits from extension ${extension_socket.id}`)
+            console.log(`> [extension-edits] now broadcasting new edits  to room ${room_id}`)
+            extension_socket.to(room_id).emit("extension-edits", msg)
+            // io_server.to(room_id).emit("extension-msg", msg)// 
+        })
+
     } else if (socket.handshake.query.type == "browser") {
+        let browser_socket = socket;
         console.log("> received connection from browser")
-        console.log("> browser socket id is : " + socket.id)
+        console.log("> browser socket id is : " + browser_socket.id)
         console.log("> checking if any rooms match id")
-        let room_id  = socket.handshake.query.room
+        let room_id  = browser_socket.handshake.query.room
         if (!rooms.includes(room_id)) {
             console.log(`> No room ${room_id} found.`)
-            socket.emit("server-ack", "No room")
+            browser_socket.emit("server-ack", "No room")
             socket.disconnect()
         } else {
             console.log(`> Room ${room_id} match!`)
-            socket.emit("server-ack", `Room ${socket.id} exists!`);
+            browser_socket.emit("server-ack", `Room ${room_id} exists!`);
+            // join the room with this room_id
+            browser_socket.join(room_id)
+            console.log(`> This browser socket is in rooms ${String(browser_socket.rooms)}`)
+
+            browser_socket.on("client-msg", (msg) => {
+                console.log(`> [client-msg] received message: "${msg}" from browser ${browser_socket.id}`)
+                console.log(`> [client-msg] now broadcasting: "${msg}" to room ${room_id}`)
+                browser_socket.to(room_id).emit("client-msg", msg)
+            })
+
+            browser_socket.on("client-edits", (msg) => {
+                console.log(`> [client-edits] received new edits from browser ${browser_socket.id}`)
+                console.log(`> [client-edits] now broadcasting new edits to room ${room_id}`)
+                browser_socket.to(room_id).emit("client-edits", msg)
+            })
         } 
     }
 
-
-    socket.on('client-msg', (msg) => {
-        console.log("[> io] received client message: " + msg)
-        socket.emit("server-msg", "I got your message '" + msg + "'")
-    })
+    // socket.on('client-msg', (msg) => {
+    //     console.log("[> io] received client message: " + msg)
+    //     socket.emit("server-msg", "I got your message '" + msg + "'")
+    // })
 })
 
 const port = process.env.PORT || 5000
