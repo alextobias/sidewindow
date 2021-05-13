@@ -11,12 +11,8 @@ sendButton = document.getElementById("sendMessageButton");
 
 connectionStatus = document.getElementById("connectionStatus");
 
-// console.log('window')
-// console.log(window.location)
-
-
 // let client_soc = io();
-let client_soc;
+let browser_soc;
 
 initConnection = function () {
     console.log("Initializing connection")
@@ -46,10 +42,10 @@ initConnection = function () {
     // console.log(`Connection options:`);
     // console.log(connection_options);
 
-    client_soc = io(connectionAddr, connection_options)
+    browser_soc = io(connectionAddr, connection_options)
     connectionStatus.innerText = "Attempting to connect to: " + connectionAddr;
 
-    client_soc.on("server-ack", (msg) => {
+    browser_soc.on("server-ack", (msg) => {
         if(msg == "No Room") {
             connectStatus.innerText = "Room does not exist."
         }
@@ -60,19 +56,27 @@ initConnection = function () {
         }
     })
 
-    client_soc.on("extension-msg", (msg) => {
+    // new format: "extension:msg" etc
+    browser_soc.on("extension:msg", (msg) => {
+        console.log("[extension:msg]: " + msg);
+        // let textfield = document.getElementById("textField");
+        // console.log(textfield)
+        textField.innerText = msg;
+    })
+
+    browser_soc.on("extension-msg", (msg) => {
         console.log("[extension-msg]: " + msg);
         // let textfield = document.getElementById("textField");
         // console.log(textfield)
         textField.innerText = msg;
     })
 
-    client_soc.on("extension-edits", (msg) => {
+    browser_soc.on("extension-edits", (msg) => {
         console.log("[extension-edits]: " + msg);
         textField.innerText = msg;
     })
 
-    client_soc.onAny((ev, arg) => {
+    browser_soc.onAny((ev, arg) => {
         console.log(`> Browser socket: got ${ev} event with args ${arg}`)
     })
 
@@ -82,14 +86,14 @@ initConnection = function () {
         console.log("[textField] Got input in textField")
         console.log("Current state of textfield: ")
         console.log(textField.innerText)
-        client_soc.emit("client-edits", textField.innerText)
+        browser_soc.emit("client-edits", textField.innerText)
     }
 }
 
 sendMessage = function () {
     messagetext = document.getElementById("sendMessageField").value;
     console.log("Sending: " + messagetext)
-    client_soc.emit("client-msg", messagetext)
+    browser_soc.emit("client-msg", messagetext)
 }
 
 connectButton.onclick = initConnection;
