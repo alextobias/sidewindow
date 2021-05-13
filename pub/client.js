@@ -71,6 +71,13 @@ initConnection = function () {
         textField.innerText = msg;
     })
 
+    // keep this
+    browser_soc.on("extension:edits", (msg) => {
+        console.log("[extension-edits]: " + msg);
+        textField.innerText = msg;
+    })
+
+    // to be removed
     browser_soc.on("extension-edits", (msg) => {
         console.log("[extension-edits]: " + msg);
         textField.innerText = msg;
@@ -86,6 +93,7 @@ initConnection = function () {
         console.log("[textField] Got input in textField")
         console.log("Current state of textfield: ")
         console.log(textField.innerText)
+        browser_soc.emit("browser:edits", textField.innerText)
         browser_soc.emit("client-edits", textField.innerText)
     }
 }
@@ -94,6 +102,7 @@ sendMessage = function () {
     messagetext = document.getElementById("sendMessageField").value;
     console.log("Sending: " + messagetext)
     browser_soc.emit("client-msg", messagetext)
+    browser_soc.emit("browser:msg", messagetext)
 }
 
 connectButton.onclick = initConnection;

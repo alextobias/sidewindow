@@ -125,7 +125,7 @@ io_server.on('connection', (socket) => {
             browser_socket.on("browser:edits", (content) => {
                 console.log(`> [browser:edits] received new edits from browser ${browser_socket.id}`);
                 console.log(`> [browser:edits] now broadcasting new edits to room ${room_id}`);
-                browser_socket.to(room_id).emit("browser:edits", msg)
+                browser_socket.to(room_id).emit("browser:edits", content)
 
             })
 
