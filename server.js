@@ -103,7 +103,8 @@ io_server.on('connection', (socket) => {
 
         let room_id  = browser_socket.handshake.query.room;
 
-        if (!rooms.includes(room_id)) {
+        // TODO: remove 'debug' room for production
+        if (!rooms.includes(room_id) && room_id !== "debug") {
             console.log(`> No room ${room_id} found.`);
             browser_socket.emit("server-ack", "No room");
             console.log(`> Disconnecting browser socket ${browser_socket.id}.`);
