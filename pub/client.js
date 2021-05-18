@@ -47,7 +47,7 @@ initConnection = function () {
 
     browser_soc.on("server-ack", (msg) => {
         if(msg == "No Room") {
-            connectStatus.innerText = "Room does not exist."
+            connectionStatus.innerText = "Room does not exist."
         }
         else if(msg) {
             connectionStatus.innerText = "Connection established at: " + connectionAddr
