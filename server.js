@@ -24,7 +24,11 @@ const io_server = new SocketIOServer(http_server, socketio_server_options)
 // now io_server is the Server instance of socketio
 
 const path = require('path');
-app.use(express.static(path.join(__dirname, '/pub')))
+
+// serve files from the 'client' directory
+// app.use(express.static(path.join(__dirname, '/pub')))
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '/pub/index.html'))

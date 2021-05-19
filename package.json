@@ -1,4 +1,14 @@
 {
+  "name": "sidewindow",
+  "description": "SideWindow lets you view and edit your vscode editor windows on another device!",
+  "author": "alextobias",
+  "scripts": {
+    "setup": "npm install && cd client && npm install && cd ..",
+    "build-run": "cd client && npm run build && cd .. && node server.js",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^4.0.2"
