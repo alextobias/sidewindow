@@ -1,0 +1,54 @@
+#editordiv {
+  height: 100%;
+}
+
+#Editor-page {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%
+}
+
+#Editor-bar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow: auto;
+  background-color: #282c34;
+  color: lightgrey;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+#Editor-bar * {
+  margin: 2px;
+}
+
+#Editor-bar-room-input-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#Editor-bar-message-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#Editor-bar-settings-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* background-color: red; */
+}
+
+.settingsItemTitle {
+  margin-right: 10px
+}
