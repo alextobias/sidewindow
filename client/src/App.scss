@@ -1,0 +1,86 @@
+$backgroundPrimary: #282c34;
+$highlightColor: #129384;
+$foregroundText: lightgrey;
+
+$primaryMain: #263238;
+$primaryLight: #4f5b62;
+$primaryDark: #000a12;
+$secondaryMain: #01579b;
+$secondaryLight: #4f83cc;
+$secondaryDark: #002f6c;
+
+.App {
+    background-color: $primaryMain;
+}
+
+#editor-view-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.MuiDrawer-paper {
+    background-color: $primaryMain
+}
+
+#editor-top-bar {
+    display: flex;
+    flex-direction: row;
+    // align-items: stretch;
+    justify-content: space-between;
+}
+
+.editor-bar-group {
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: flex;
+}
+
+.MuiButton-root {
+    height: auto;
+}
+
+#editor-container {
+    height: 100%
+}
+
+.MuiPaper {
+    background-color: $secondaryMain;
+    color: red;
+}
+
+#drawer-contents {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $primaryLight;
+}
+
+.drawer-contents-group {
+    padding: 20px;
+}
+
+#drawer-settings-group {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    color: $foregroundText;
+}
+
+.settings-item-container {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.settings-item-title {
+    // padding: 5px;
+}
+
+#drawer-info-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
