@@ -35,6 +35,11 @@ $secondaryDark: #002f6c;
     padding-left: 5px;
     padding-right: 5px;
     display: flex;
+    align-items: center;
+}
+
+#editor-bar-connection-group {
+    flex-wrap: wrap;
 }
 
 .MuiButton-root {
@@ -61,6 +66,15 @@ $secondaryDark: #002f6c;
 
 .drawer-contents-group {
     padding: 20px;
+}
+
+#drawer-info-group {
+    color: $foregroundText;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 #drawer-settings-group {

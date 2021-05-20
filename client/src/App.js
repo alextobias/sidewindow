@@ -101,9 +101,7 @@ function App() {
               </> : null}
             <input size="small" variant="outlined" label="Room"></input>
             <button>Connect!</button>
-          </div>
-          <div class="editor-bar-group" id="editor-bar-status-group">
-            Status here
+            <div id="editor-bar-connection-status">Status message goes here.</div>
           </div>
           <div class="editor-bar-group" id="editor-bar-settings-group">
             {/* debug mode switch */}
@@ -119,7 +117,7 @@ function App() {
               <SettingsItem title="Font Size" value={editorFontSize} setterFunction={setEditorFontSize} possibleValues={editorFontSizes} ></SettingsItem>
             </div>
             <div class="drawer-contents-group" id="drawer-info-group">
-              <p>About</p>
+              <div>Created by <a href="https://github.com/alextobias">alextobias</a>.</div>
               <Switch checked={debugMode} onChange={(e) => setDebugMode(e.target.checked)}></Switch>
             </div>
           </div>
