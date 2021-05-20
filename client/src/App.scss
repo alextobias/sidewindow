@@ -13,15 +13,27 @@ $secondaryDark: #002f6c;
     background-color: $primaryMain;
 }
 
+button {
+}
+
 #editor-view-page {
     display: flex;
     flex-direction: column;
     height: 100vh;
 }
 
-.MuiDrawer-paper {
-    background-color: $primaryMain
-}
+// keeping these in case I need them again
+// but if you want to modify the drawer, best look at drawer-contents
+// .MuiDrawer-paper {
+//     background-color: $secondaryMain;
+// }
+// .MuiPaper {
+//     background-color: $secondaryMain;
+//     color: red;
+// }
+// .MuiButton-root {
+//     height: auto;
+// }
 
 #editor-top-bar {
     display: flex;
@@ -42,17 +54,8 @@ $secondaryDark: #002f6c;
     flex-wrap: wrap;
 }
 
-.MuiButton-root {
-    height: auto;
-}
-
 #editor-container {
     height: 100%
-}
-
-.MuiPaper {
-    background-color: $secondaryMain;
-    color: red;
 }
 
 #drawer-contents {
@@ -62,6 +65,7 @@ $secondaryDark: #002f6c;
     justify-content: space-between;
     align-items: center;
     background-color: $primaryLight;
+    width: 200px;
 }
 
 .drawer-contents-group {
