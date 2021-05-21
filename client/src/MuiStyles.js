@@ -10,8 +10,9 @@ const theme = createMuiTheme({
     MuiDrawer: {
       paper: {
         // backgroundColor: "#263238",
-        backgroundColor: "red",
+        // backgroundColor: "red",
         // width: "200px",
+        opacity: 0.7,
       }
     },
     MuiSelect: {

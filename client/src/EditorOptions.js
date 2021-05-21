@@ -38,7 +38,7 @@ const editorLanguages = ["java", "javascript", "python", "c_cpp", "json"]
 const defaultEditorLanguage = "javascript"
 
 const editorThemes = ["github", "tomorrow", "kuroir", "twilight", "xcode", "textmate", "solarized_dark", "solarized_light", "terminal"]
-const defaultEditorTheme = "github"
+const defaultEditorTheme = "twilight"
 
 const editorFontSizes = Array.from(Array(21).keys()).map((n) => n + 10)
 const defaultEditorFontSize = 16;

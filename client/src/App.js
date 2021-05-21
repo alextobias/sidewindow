@@ -2,7 +2,7 @@
 // -------------
 // React Imports
 // -------------
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 // ----------------
@@ -50,11 +50,11 @@ function App() {
   const [debugMode, setDebugMode] = useState(false)
 
   // General layout state variables
-  const [isLandingOpen, setIsLandingOpen] = useState(true)
+  const [isLandingOpen, setIsLandingOpen] = useState(false)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   // Editor configuration state variables
-  const [editorContents, setEditorContents] = useState("console.log('hello world!')")
+  const [editorContents, setEditorContents] = useState("console.log('hello world!') \n\nIn your VS Code extension, hit 'Start Sharing'!")
   const [editorLanguage, setEditorLanguage] = useState(defaultEditorLanguage)
   const [editorTheme, setEditorTheme] = useState(defaultEditorTheme)
   const [editorFontSize, setEditorFontSize] = useState(defaultEditorFontSize)
@@ -175,6 +175,10 @@ function App() {
     setRoom(event.target.value)
   }
 
+  useEffect(() => {
+    setIsLandingOpen(true);
+  }, [])
+
 
 
   return (
@@ -182,16 +186,29 @@ function App() {
     <div className="App">
       {/* component for overlay page will go here */}
       {/* for now, just implement ace editor and go from there */}
-      {/* <Drawer anchor="top" id="landing-overlay" elevation={20} open={isLandingOpen} onClose={() => setIsLandingOpen(false)}>
+      <Drawer 
+        anchor="top" 
+        id="landing-overlay" 
+        elevation={20} 
+        open={isLandingOpen} 
+        onClose={() => {setIsLandingOpen(false)}}
+        transitionDuration={{
+          appear: 1000,
+          enter: 250,
+          exit: 300,
+        }}
+        >
         <div id="landing-page">
-          <p>Hello</p>
-          <p>Hello</p>
-          <p>Hello</p>
-          <p>Hello</p>
-          <p>Hello</p>
-            <Button onClick={() => setIsLandingOpen(false)}>Close Landing</Button>
+          <h1>SideWindow</h1>
+            <p>Click "Connect to Server" in the SideWindow VS Code extension, and enter the room code below: </p>
+            <div id="landing-page-connection-group">
+              <input placeholder='Room'></input>
+              <button onClick={() => setIsLandingOpen(false)}>Connect!</button>
+            </div>
+            <p>Don't have the extension? <a href="https://alextobias.github.com">Get it here.</a></p>
+            <p>Go straight to editor</p>
         </div>
-      </Drawer> */}
+      </Drawer>
       <div id="editor-view-page">
         <AppBar classname="editor-top-bar" position="sticky" id="editor-top-bar" display="flex" flexDirection="row-reverse">
           <div class="editor-bar-group" id="editor-bar-connection-group">
@@ -208,6 +225,7 @@ function App() {
             <div id="editor-bar-connection-status">Status message goes here.</div>
           </div>
           <div class="editor-bar-group" id="editor-bar-settings-group">
+            <button onClick={() => setIsLandingOpen(true)}>Open Landing</button>
             {/* debug mode switch */}
             <button onClick={() => setIsDrawerOpen(true)}>Settings</button>
           </div>

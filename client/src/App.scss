@@ -16,6 +16,20 @@ $secondaryDark: #002f6c;
 button {
 }
 
+a {
+    color: $secondaryLight;
+}
+
+#landing-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $primaryMain;
+    color: $foregroundText;
+}
+
 #editor-view-page {
     display: flex;
     flex-direction: column;
