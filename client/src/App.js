@@ -195,6 +195,9 @@ function App() {
       <div id="editor-view-page">
         <AppBar classname="editor-top-bar" position="sticky" id="editor-top-bar" display="flex" flexDirection="row-reverse">
           <div class="editor-bar-group" id="editor-bar-connection-group">
+          <div class="editor-bar-group" id="editor-bar-title">
+            <div id="editor-bar-logo-text"><strong>SideWindow</strong></div>
+          </div>
             {debugMode? 
               <>
                 <input label="Host" placeholder={"http://localhost/"} onChange={handleAddressChange}></input>
@@ -218,6 +221,7 @@ function App() {
               <SettingsItem title="Font Size" value={editorFontSize} setterFunction={setEditorFontSize} possibleValues={editorFontSizes} ></SettingsItem>
             </div>
             <div class="drawer-contents-group" id="drawer-info-group">
+              <div><strong>SideWindow</strong></div>
               <div>Created by <a href="https://github.com/alextobias">alextobias</a>.</div>
               {/* DEBUG - take out for production */}
               <Switch checked={debugMode} onChange={(e) => setDebugMode(e.target.checked)}></Switch>
