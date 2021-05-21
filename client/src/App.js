@@ -126,6 +126,14 @@ function App() {
         setEditorContents(msg)
     })
 
+    // this is when we receive edits from a server that are from another browser client
+    // TODO: see if this fires on itself when the browser makes an edit
+    // i.e. it receives its own edit
+    new_socket.on("browser:edits", (msg) => {
+        console.log("[browser:edits]: " + msg);
+        setEditorContents(msg)
+    })
+
     new_socket.onAny((ev, arg) => {
         console.log(`> Browser socket: got ${ev} event with args ${arg}`)
     })
