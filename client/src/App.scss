@@ -30,6 +30,12 @@ a {
     color: $foregroundText;
 }
 
+#landing-page-connection-group {
+    * {
+        margin: 5px;
+    }
+}
+
 #editor-view-page {
     display: flex;
     flex-direction: column;
@@ -66,6 +72,9 @@ a {
 
 #editor-bar-connection-group {
     flex-wrap: wrap;
+    * {
+        margin: 2px;
+    }
 }
 
 #editor-container {

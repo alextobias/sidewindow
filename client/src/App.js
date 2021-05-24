@@ -54,7 +54,7 @@ function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   // Editor configuration state variables
-  const [editorContents, setEditorContents] = useState("console.log('hello world!') \n\nIn your VS Code extension, hit 'Start Sharing'!")
+  const [editorContents, setEditorContents] = useState("console.log('hello world!') \n\nNot much use editing here without being connected.... \n\nIn your VS Code extension, hit 'Start Sharing', and enter the code above! \n\nDon't have the extension? Go to alextobias.me to get it now!")
   const [editorLanguage, setEditorLanguage] = useState(defaultEditorLanguage)
   const [editorTheme, setEditorTheme] = useState(defaultEditorTheme)
   const [editorFontSize, setEditorFontSize] = useState(defaultEditorFontSize)
@@ -64,7 +64,7 @@ function App() {
   // TODO: get rid of this below and use socket.connected
   const [isSocketConnected, setIsSocketConnected] = useState()
   const [connectionStatus, setConnectionStatus] = useState("No connection started.")
-  const [room, setRoom] = useState("debug")
+  const [room, setRoom] = useState("")
   
 
   // uncomment this if I end up needing to use mui styles
@@ -235,10 +235,10 @@ function App() {
             <p>Click "Connect to Server" in the SideWindow VS Code extension, and enter the room code below: </p>
             <div id="landing-page-connection-group">
               <input placeholder='Room' onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
-              <button onClick={initConnection}>Connect!</button>
+              <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect!</Button>
             </div>
-            <p>Don't have the extension? <a href="https://alextobias.github.com">Get it here.</a></p>
-            <p>Go straight to editor</p>
+            <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p>
+            <Button variant="contained" color="secondary" onClick={() => {setIsLandingOpen(false)}}>Go straight to editor</Button>
         </div>
       </Drawer>
       <div id="editor-view-page">
@@ -254,22 +254,22 @@ function App() {
               </> : null}
             <input size="small" variant="outlined" label="Room" onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
             {!isSocketConnected ? 
-              <button onClick={initConnection}>Connect</button>
+              <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect</Button>
               :
-              <button onClick={disconnectSocket}>Disconnect</button>
+              <Button variant="contained" color="secondary" size="small" onClick={disconnectSocket}>Disconnect</Button>
             }
             <div id="editor-bar-connection-status">{connectionStatus}</div>
           </div>
           <div class="editor-bar-group" id="editor-bar-settings-group">
-            <button onClick={() => setIsLandingOpen(true)}>Open Landing</button>
+            {debugMode? <Button variant="contained" color="secondary" size="small" onClick={() => setIsLandingOpen(true)}>Open Landing</Button> : null}
             {/* debug mode switch */}
-            <button onClick={() => setIsDrawerOpen(true)}>Settings</button>
+            <Button variant="contained" color="secondary" size="small" onClick={() => setIsDrawerOpen(true)}>Settings</Button>
           </div>
         </AppBar>
         <Drawer anchor="right" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
           <div id="drawer-contents">
             <div class="drawer-contents-group" id="drawer-settings-group">
-              {/* <button onClick={() => setIsDrawerOpen(false)}>Close</button> */}
+              {/* <Button onClick={() => setIsDrawerOpen(false)}>Close</Button> */}
               <SettingsItem title="Language" value={editorLanguage} setterFunction={setEditorLanguage} possibleValues={editorLanguages} ></SettingsItem>
               <SettingsItem title="Theme" value={editorTheme} setterFunction={setEditorTheme} possibleValues={editorThemes} ></SettingsItem>
               <SettingsItem title="Font Size" value={editorFontSize} setterFunction={setEditorFontSize} possibleValues={editorFontSizes} ></SettingsItem>
