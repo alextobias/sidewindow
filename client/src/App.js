@@ -61,6 +61,7 @@ function App() {
 
   // Connection state variables
   const [socket, setSocket] = useState()
+  // TODO: get rid of this below and use socket.connected
   const [isSocketConnected, setIsSocketConnected] = useState()
   const [connectionStatus, setConnectionStatus] = useState("No connection started.")
   const [room, setRoom] = useState("debug")
@@ -70,6 +71,22 @@ function App() {
   // const classes = useStyles();
 
   function initConnection() {
+    console.log("Calling initConnection.")
+
+    // do a check if socket is already active
+    if(socket === undefined) {
+      console.log("initConnection: socket is undefined, i.e. this is the first time we're connecting.")
+    } else if(socket.connected) {
+      console.log("initConnection: socket is already connected. Rejecting this attempt to connect.")
+      return
+    } else if(!socket.connected) {
+      console.log("initConnection: socket exists but is not connected. Will make an attempt to connect.")
+    } else {
+      console.log("initConnection: ERROR - socket is not undefined, but is neither connected nor disconnected. RETURNING.")
+      console.log(socket)
+      return
+    }
+
     console.log("Initializing connection")
     console.log(`addr: ${address}`)
     console.log(`port: ${port}`)
@@ -95,20 +112,25 @@ function App() {
 
     let new_socket = io(connectionAddr, connection_options)
 
+    // TODO: get rid of setIsSocketConnected and use socket.connected
     setIsSocketConnected(true)
     setSocket(new_socket)
     
     console.log("Logging socket after connection:")
     console.log(new_socket)
 
-    new_socket.on("server-ack", (msg) => {
+    new_socket.on("server:ack", (msg) => {
           if(msg == "No room") {
             setConnectionStatus("Room does not exist.")
+            // disconnect ourselves just in case (server side already does disconnect)
+            new_socket.disconnect()
           }
           else if(msg) {
-              setConnectionStatus("Connection established at: " + connectionAddr)
-              console.log("Got 'server-ack' event from server!")
+              setConnectionStatus(`Connection established at: ${connectionAddr}, fetching document...`)
+              console.log("Got 'server:ack' event from server!")
               console.log("[server] " + msg)
+
+              // once we recieve an edit from the server, then we remove the landing page
           }
       })
 
@@ -122,6 +144,10 @@ function App() {
 
     // keep this
     new_socket.on("extension:edits", (msg) => {
+      if(isLandingOpen) {
+        setIsLandingOpen(false)
+      }
+        setConnectionStatus("Connected.")
         console.log("[extension:edits]: " + msg);
         setEditorContents(msg)
     })
@@ -141,6 +167,7 @@ function App() {
     new_socket.on("disconnect", (msg) => {
       console.log("> got disconnected from server")
       setConnectionStatus("Disconnected from server.")
+      // TODO: get rid of this and use socket.connected
       setIsSocketConnected(false)
     })
   }
@@ -175,6 +202,11 @@ function App() {
     setRoom(event.target.value)
   }
 
+  function disconnectSocket(event) {
+    console.log("Disconnecting socket.")
+    socket.disconnect()
+  }
+
   useEffect(() => {
     setIsLandingOpen(true);
   }, [])
@@ -202,8 +234,8 @@ function App() {
           <h1>SideWindow</h1>
             <p>Click "Connect to Server" in the SideWindow VS Code extension, and enter the room code below: </p>
             <div id="landing-page-connection-group">
-              <input placeholder='Room'></input>
-              <button onClick={() => setIsLandingOpen(false)}>Connect!</button>
+              <input placeholder='Room' onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
+              <button onClick={initConnection}>Connect!</button>
             </div>
             <p>Don't have the extension? <a href="https://alextobias.github.com">Get it here.</a></p>
             <p>Go straight to editor</p>
@@ -220,9 +252,13 @@ function App() {
                 <input label="Host" placeholder={"http://localhost/"} onChange={handleAddressChange}></input>
                 <input label="Port" placeholder={"5000"} onChange={handlePortChange}></input>
               </> : null}
-            <input size="small" variant="outlined" label="Room" onChange={handleRoomChange}></input>
-            <button onClick={initConnection}>Connect!</button>
-            <div id="editor-bar-connection-status">Status message goes here.</div>
+            <input size="small" variant="outlined" label="Room" onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
+            {!isSocketConnected ? 
+              <button onClick={initConnection}>Connect</button>
+              :
+              <button onClick={disconnectSocket}>Disconnect</button>
+            }
+            <div id="editor-bar-connection-status">{connectionStatus}</div>
           </div>
           <div class="editor-bar-group" id="editor-bar-settings-group">
             <button onClick={() => setIsLandingOpen(true)}>Open Landing</button>

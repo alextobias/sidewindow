@@ -43,7 +43,6 @@ io_server.on('connection', (socket) => {
     sockets.push(socket)
     console.log('> New Connection from ' + socket.id);
     console.log('> Handshake params:')
-    // io_server.emit("server-ack", "hello, new client!")
     console.log(socket.handshake.query)
 
     if(socket.handshake.query.type == "extension") {
@@ -51,7 +50,6 @@ io_server.on('connection', (socket) => {
         console.log("> received connection from extension")
         console.log("> extension socket id is: " + extension_socket.id)
         console.log("> creating room " + extension_socket.id)
-        extension_socket.emit("server-ack", "hello, new extension!")
         const room_id = extension_socket.id.slice(0,4)
 
         // use extension id for debug messages
@@ -96,15 +94,29 @@ io_server.on('connection', (socket) => {
         // TODO: remove 'debug' room for production
         if (!rooms.includes(room_id) && room_id !== "debug") {
             console.log(`> No room ${room_id} found.`);
-            browser_socket.emit("server-ack", "No room");
+            browser_socket.emit("server:ack", "No room");
             console.log(`> Disconnecting browser socket ${browser_socket.id}.`);
             socket.disconnect()
         } else {
             console.log(`> Room ${room_id} match!`)
-            browser_socket.emit("server-ack", `Room ${room_id} exists!`);
-            // join the room with this room_id
+
+            // thinking about what I want to do with this section
+            // if we're here, then the room exists, and a successful connection can be made
+            // but I want the client to wait until it gets the most up to date code
+            // maybe the client just waits for a extension-edits event
+            // so I can use this socket to broadcast to the room "extension please send an edit"
+            // then the extension sends back an edit
+            // and that way we don't have to single out particular clients
+
+            // have it join the room
             browser_socket.join(room_id)
             console.log(`> This browser socket is in rooms ${Array.from(browser_socket.rooms)}`)
+
+            // then have the socket broadcast 'request-edit' to the room
+            browser_socket.to(room_id).emit("browser:request-edit");
+
+            browser_socket.emit("server:ack", `Room ${room_id} exists!`);
+            // join the room with this room_id
 
             // new standard will use "browser:msg" format to refer to a browser client
             browser_socket.on("browser:msg", (msg) => {

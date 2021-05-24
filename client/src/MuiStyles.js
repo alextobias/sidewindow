@@ -12,7 +12,7 @@ const theme = createMuiTheme({
         // backgroundColor: "#263238",
         // backgroundColor: "red",
         // width: "200px",
-        opacity: 0.7,
+        opacity: 1,
       }
     },
     MuiSelect: {
