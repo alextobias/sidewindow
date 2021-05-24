@@ -11,9 +11,7 @@ $secondaryDark: #002f6c;
 
 .App {
     background-color: $primaryMain;
-}
-
-button {
+    font-family: 'Courier New', Courier, monospace;
 }
 
 a {
@@ -21,13 +19,23 @@ a {
 }
 
 #landing-page {
+    font-family: 'Courier New', Courier, monospace;
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     background-color: $primaryMain;
     color: $foregroundText;
+}
+
+#landing-page-column {
+    max-width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 #landing-page-connection-group {
@@ -63,18 +71,16 @@ a {
 }
 
 .editor-bar-group {
-    padding: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
     display: flex;
     align-items: center;
 }
 
+.editor-bar-inner-item {
+    margin: 5px;
+}
+
 #editor-bar-connection-group {
     flex-wrap: wrap;
-    * {
-        margin: 2px;
-    }
 }
 
 #editor-container {

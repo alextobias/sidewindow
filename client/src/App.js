@@ -175,9 +175,7 @@ function App() {
   function handleEditorChange(contents) {
     console.log("> EDITOR: Got editor change:")
     console.log(`contents passed in: ${contents}`)
-    console.log(`editorContents before: ${editorContents}`)
     setEditorContents(contents)
-    console.log(`editorContents after: ${editorContents}`)
     if(isSocketConnected) {
       console.log(`> emitting [browser:edits]: ${contents}`) 
       socket.emit("browser:edits", contents)
@@ -231,39 +229,45 @@ function App() {
         }}
         >
         <div id="landing-page">
-          <h1>SideWindow</h1>
-            <p>Click "Connect to Server" in the SideWindow VS Code extension, and enter the room code below: </p>
-            <div id="landing-page-connection-group">
-              <input placeholder='Room' onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
-              <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect!</Button>
-            </div>
-            <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p>
-            <Button variant="contained" color="secondary" onClick={() => {setIsLandingOpen(false)}}>Go straight to editor</Button>
+          <div id="landing-page-column">
+            <h1>SideWindow</h1>
+              <p>Click "Connect to Server" in the SideWindow VS Code extension, and enter the room code below: </p>
+              <div id="landing-page-connection-group">
+                <input placeholder='Room' onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
+                <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect!</Button>
+              </div>
+              <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p>
+              <Button variant="contained" color="secondary" onClick={() => {setIsLandingOpen(false)}}>Go straight to editor</Button>
+          </div>
         </div>
       </Drawer>
       <div id="editor-view-page">
         <AppBar classname="editor-top-bar" position="sticky" id="editor-top-bar" display="flex" flexDirection="row-reverse">
+          {/* <div class="editor-bar-group" id="editor-bar-title">
+          </div> */}
           <div class="editor-bar-group" id="editor-bar-connection-group">
-          <div class="editor-bar-group" id="editor-bar-title">
-            <div id="editor-bar-logo-text"><strong>SideWindow</strong></div>
-          </div>
+            <div class="editor-bar-inner-item" id="editor-bar-logo-text"><strong>SideWindow</strong></div>
             {debugMode? 
               <>
                 <input label="Host" placeholder={"http://localhost/"} onChange={handleAddressChange}></input>
                 <input label="Port" placeholder={"5000"} onChange={handlePortChange}></input>
               </> : null}
-            <input size="small" variant="outlined" label="Room" onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
-            {!isSocketConnected ? 
-              <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect</Button>
-              :
-              <Button variant="contained" color="secondary" size="small" onClick={disconnectSocket}>Disconnect</Button>
-            }
-            <div id="editor-bar-connection-status">{connectionStatus}</div>
+            <input class="editor-bar-inner-item" size="small" variant="outlined" label="Room" onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
+            <div class="editor-bar-inner-item">
+              {!isSocketConnected ? 
+                <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect</Button>
+                :
+                <Button variant="contained" color="secondary" size="small" onClick={disconnectSocket}>Disconnect</Button>
+              }
+            </div>
+            <div class="editor-bar-inner-item" id="editor-bar-connection-status">{connectionStatus}</div>
           </div>
           <div class="editor-bar-group" id="editor-bar-settings-group">
+            <div class="editor-bar-inner-item">
             {debugMode? <Button variant="contained" color="secondary" size="small" onClick={() => setIsLandingOpen(true)}>Open Landing</Button> : null}
             {/* debug mode switch */}
-            <Button variant="contained" color="secondary" size="small" onClick={() => setIsDrawerOpen(true)}>Settings</Button>
+              <Button variant="contained" color="secondary" size="small" onClick={() => setIsDrawerOpen(true)}>Settings</Button>
+            </div>
           </div>
         </AppBar>
         <Drawer anchor="right" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
@@ -292,6 +296,8 @@ function App() {
             theme={editorTheme}
             value={editorContents}
             onChange={handleEditorChange}
+            showGutter={true}
+            debounceChangePeriod={250}
           >
           </AceEditor>
         </div>

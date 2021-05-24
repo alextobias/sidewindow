@@ -41,6 +41,22 @@ const theme = createMuiTheme({
       contrastText: '#eeeeee',
     },
   },
+  typography: {
+    fontFamily: [
+      'Consolas',
+      'Courier New',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
 });
 
 export {useStyles as useStyles, theme as theme}
