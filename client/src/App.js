@@ -60,8 +60,8 @@ const StyledStepLabel = styled(StepLabel)({
 function App() {
 
   // Variables used for debug mode - take out for production
-  const [address, setAddress] = useState("https://sidewindow.herokuapp.com")
-  const [port, setPort] = useState("")
+  const [address, setAddress] = useState("http://localhost")
+  const [port, setPort] = useState("5000")
   const [debugMode, setDebugMode] = useState(false)
 
   // General layout state variables
