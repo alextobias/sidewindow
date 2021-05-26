@@ -41,6 +41,6 @@ const editorThemes = ["github", "tomorrow", "kuroir", "twilight", "xcode", "text
 const defaultEditorTheme = "twilight"
 
 const editorFontSizes = Array.from(Array(21).keys()).map((n) => n + 10)
-const defaultEditorFontSize = 16;
+const defaultEditorFontSize = 13;
 
 export {editorLanguages, editorThemes, editorFontSizes, defaultEditorLanguage, defaultEditorTheme, defaultEditorFontSize};
