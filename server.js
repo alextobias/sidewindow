@@ -92,7 +92,7 @@ io_server.on('connection', (socket) => {
         const browser_id = browser_socket.id.slice(0,4)
 
         // TODO: remove 'debug' room for production
-        if (!rooms.includes(room_id) && room_id !== "debug") {
+        if (!rooms.includes(room_id) && room_id !== "DBUG") {
             console.log(`> No room ${room_id} found.`);
             browser_socket.emit("server:ack", "No room");
             console.log(`> Disconnecting browser socket ${browser_socket.id}.`);
