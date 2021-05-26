@@ -25,7 +25,7 @@ import SettingsItem from "./SettingsItem" // used in the side drawer for picking
 // -----------------------------
 import { AppBar, Button, Drawer, TextField, Input, Switch, Select } from "@material-ui/core"
 import { Stepper, Step, StepLabel, StepContent } from "@material-ui/core"
-import { ThemeProvider } from "@material-ui/core/styles"
+import { styled, ThemeProvider } from "@material-ui/core/styles"
 
 // ---------------------
 // Editor config imports
@@ -36,12 +36,26 @@ import {editorLanguages, editorThemes, editorFontSizes, defaultEditorLanguage, d
 // Style imports
 // -------------
 import './App.scss';
-import { theme } from "./MuiStyles"
+import { theme, useStyles } from "./MuiStyles"
 
 
 // naming conventions for element IDs and classes will be lower-hyphen-case
 // this is so that I can identify which are my own components
 // but components that I make myself will follow the CamelCase convention
+
+// simply AWFUL workaround
+// but maybe I can build on this
+const StyledStepLabel = styled(StepLabel)({
+  "& .MuiStepLabel-iconContainer": {
+    paddingRight: "20px"
+  },
+  "& .MuiSvgIcon-root": {
+    color: "#01579b"
+  },
+  "& .MuiTypography-root": {
+    color: "#FFFFFF"
+  }
+})
 
 function App() {
 
@@ -64,12 +78,11 @@ function App() {
   const [socket, setSocket] = useState()
   // TODO: get rid of this below and use socket.connected
   const [isSocketConnected, setIsSocketConnected] = useState()
-  const [connectionStatus, setConnectionStatus] = useState("No connection started.")
+  const [connectionStatus, setConnectionStatus] = useState("Connection not started.")
   const [room, setRoom] = useState("")
   
 
   // uncomment this if I end up needing to use mui styles
-  // const classes = useStyles();
 
   function initConnection() {
     console.log("Calling initConnection.")
@@ -127,7 +140,7 @@ function App() {
             new_socket.disconnect()
           }
           else if(msg) {
-              setConnectionStatus(`Connection established at: ${connectionAddr}, fetching document...`)
+              setConnectionStatus(`Connection Active`)
               console.log("Got 'server:ack' event from server!")
               console.log("[server] " + msg)
 
@@ -167,7 +180,7 @@ function App() {
 
     new_socket.on("disconnect", (msg) => {
       console.log("> got disconnected from server")
-      setConnectionStatus("Disconnected from server.")
+      setConnectionStatus("Disconnected.")
       // TODO: get rid of this and use socket.connected
       setIsSocketConnected(false)
     })
@@ -210,7 +223,7 @@ function App() {
     setIsLandingOpen(true);
   }, [])
 
-
+  const styleClasses = useStyles();
 
   return (
     <ThemeProvider theme={theme}>
@@ -233,20 +246,25 @@ function App() {
           <div id="landing-page-column">
             <h1>SideWindow</h1>
               <div id="stepper-container">
-                {/* <Stepper orientation="vertical">
-                  <Step active={true}>
-                    <StepLabel>Install the <a href="https://alextobias.github.io">SideWindow VS Code extension</a>.</StepLabel>
+                <Stepper className={styleClasses.root} id="landing-stepper" orientation="vertical">
+                  <Step>
+                    <StyledStepLabel active={true}>Install the <a href="https://alextobias.github.io">SideWindow VS Code extension</a>.</StyledStepLabel>
                   </Step>
-                  <Step active={true}>
-                    <StepLabel>Open the extension menu and click 'Share Current File'.</StepLabel>
+                  <Step>
+                    <StyledStepLabel active={true}>Open the extension menu and click 'Share Current File'.</StyledStepLabel>
                   </Step>
-                  <Step active={true}>
-                    <StepLabel>Enter the room code below!</StepLabel>
+                  <Step>
+                    <StyledStepLabel active={true}>Enter the room code below!</StyledStepLabel>
                   </Step>
-                </Stepper> */}
+                </Stepper>
               </div>
-              <p>To get started, install the SideWindow VS Code extension, and click 'Share Current File'. Then, enter the room code below: </p>
-              <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p>
+              {/* <p>Welcome to SideWindow!</p> */}
+              {/* <ol>
+                <li>Install the SideWindow VS Code Extension.</li>
+                <li>In the extension, click 'Share Current File'.</li>
+                <li>Enter the room code below!</li>
+              </ol> */}
+              {/* <p>To get started, install the SideWindow VS Code extension, and click 'Share Current File'. Then, enter the room code below: </p> */}
               <div id="landing-page-connection-group">
                 <div id="landing-page-room-input-container">
                   <input id="landing-page-room-input" placeholder='Enter room here...' maxLength={4} onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
@@ -257,15 +275,13 @@ function App() {
               </div>
               <p>{connectionStatus}</p>
               <Button variant="contained" color="secondary" onClick={() => {setIsLandingOpen(false)}}>Go straight to editor</Button>
+              <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p>
           </div>
         </div>
       </Drawer>
       <div id="editor-view-page">
         <AppBar classname="editor-top-bar" position="sticky" id="editor-top-bar" display="flex" flexDirection="row-reverse">
-          {/* <div class="editor-bar-group" id="editor-bar-title">
-          </div> */}
           <div class="editor-bar-group" id="editor-bar-connection-group">
-            {/* <div class="editor-bar-inner-item" id="editor-bar-logo-text"><strong>SideWindow</strong></div> */}
             <div class="editor-bar-inner-item" id="editor-bar-connection-input-group">
               <div id="editor-bar-connect-button-container">
               {!isSocketConnected ? 
@@ -284,11 +300,8 @@ function App() {
                 </div>
               </div>
           </div>
-          <div class="editor-bar-group" id="editor-bar-status-container">
-            <div class="editor-bar-inner-item" id="editor-bar-connection-status">{connectionStatus}</div>
-          </div>
           <div class="editor-bar-group" id="editor-bar-settings-group">
-            <div class="editor-bar-inner-item">
+            <div class="editor-bar-inner-item" id="editor-bar-settings-button-container">
             {debugMode? <Button variant="contained" color="secondary" size="small" onClick={() => setIsLandingOpen(true)}>Open Landing</Button> : null}
             {/* debug mode switch */}
               <Button variant="contained" color="secondary" size="small" onClick={() => setIsDrawerOpen(true)}>Settings</Button>
@@ -328,6 +341,17 @@ function App() {
           >
           </AceEditor>
         </div>
+        <AppBar classname="editor-bottom-bar" position="sticky" id="editor-bottom-bar" display="flex" flexDirection="row-reverse">
+          {/* <div id="editor-bar-group">
+            <div><b>SideWindow</b></div>
+          </div> */}
+          <div id="editor-bar-status-container">
+            <div class="editor-bar-inner-item" id="editor-bar-connection-status">{connectionStatus}</div>
+          </div>
+          {/* <div id="editor-bar-group">
+            <div><b>by Alex Tobias</b></div>
+          </div> */}
+        </AppBar>
       </div>
     </div>
     </ThemeProvider>

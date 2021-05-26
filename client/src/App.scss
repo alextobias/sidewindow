@@ -30,12 +30,21 @@ a {
 }
 
 #landing-page-column {
-    max-width: 50vw;
+    max-width: 75vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+#landing-stepper {
+    background-color: $primaryMain;
+    max-width: 600px;
+}
+
+.landing-step-label {
+    // background-color: white;
 }
 
 #landing-page-connection-group {
@@ -79,11 +88,25 @@ a {
 //     height: auto;
 // }
 
+#editor-bottom-bar {
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    background-color: $primaryMain;
+    flex-direction: row;
+}
+
+#editor-bar-connection-status {
+    font-size: 14px;
+    padding: 4px;
+}
+
 #editor-top-bar {
     display: flex;
     flex-direction: row;
     // align-items: stretch;
     justify-content: space-between;
+    // flex-wrap: wrap;
 }
 
 .editor-bar-group {
@@ -117,6 +140,15 @@ a {
     display: flex;
     background-color: $secondaryMain;
     // padding: 20px;
+}
+
+#editor-bar-settings-group {
+    height: 100%;
+}
+
+#editor-bar-settings-button-container {
+    box-sizing: border-box;
+    height: 100%;
 }
 
 #editor-container {

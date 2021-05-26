@@ -3,6 +3,25 @@
 import { createMuiTheme, makeStyles } from  "@material-ui/core/styles"
 
 const useStyles = makeStyles({
+  root: {
+    backgroundColor: "orange",
+    color: "green"
+  },
+  label: {
+    backgroundColor: "red",
+    color: "orange",
+  },
+  iconContainer: {
+    color: "purple",
+    backgroundColor: "yellow"
+  },
+  labelContainer: {
+    color: "orange",
+    backgroundColor: "yellow",
+    typography: {
+      color: "white",
+    }
+  }
 })
 
 const theme = createMuiTheme({
@@ -20,7 +39,7 @@ const theme = createMuiTheme({
       contrastText: '#eeeeee',
     },
     text: {
-      primary: "#eeeeee"
+      // primary: "#eeeeee"
     }
   },
   overrides: {
@@ -48,33 +67,6 @@ const theme = createMuiTheme({
         borderRadius: 0
       }
     },
-    MuiStepper: {
-      root: {
-        backgroundColor: "#263238",
-        // color: "red",
-      }
-    },
-    MuiStep: {
-      root: {
-        // backgroundColor: "orange",
-        // color: "blue"
-      }
-    },
-    MuiStepLabel: {
-      active: {
-        // backgroundColor: "purple"
-      }
-    },
-    MuiStepIcon: {
-      active: {
-        palette: {
-          light: '#4f83cc',
-          main: '#01579b',
-          dark: '#002f6c',
-          contrastText: '#eeeeee',
-        }
-      }
-    }
   },
   typography: {
     fontFamily: [
