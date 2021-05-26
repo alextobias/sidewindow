@@ -6,6 +6,23 @@ const useStyles = makeStyles({
 })
 
 const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#4f5b62',
+      main: '#263238',
+      dark: '#000a12',
+      contrastText: '#eeeeee',
+    },
+    secondary: {
+      light: '#4f83cc',
+      main: '#01579b',
+      dark: '#002f6c',
+      contrastText: '#eeeeee',
+    },
+    text: {
+      primary: "#eeeeee"
+    }
+  },
   overrides: {
     MuiDrawer: {
       paper: {
@@ -25,24 +42,43 @@ const theme = createMuiTheme({
       selectMenu: {
         color: "lightgrey"
       }
+    },
+    MuiButton: {
+      root: {
+        borderRadius: 0
+      }
+    },
+    MuiStepper: {
+      root: {
+        backgroundColor: "#263238",
+        // color: "red",
+      }
+    },
+    MuiStep: {
+      root: {
+        // backgroundColor: "orange",
+        // color: "blue"
+      }
+    },
+    MuiStepLabel: {
+      active: {
+        // backgroundColor: "purple"
+      }
+    },
+    MuiStepIcon: {
+      active: {
+        palette: {
+          light: '#4f83cc',
+          main: '#01579b',
+          dark: '#002f6c',
+          contrastText: '#eeeeee',
+        }
+      }
     }
-  },
-  palette: {
-    primary: {
-      light: '#4f5b62',
-      main: '#263238',
-      dark: '#000a12',
-      contrastText: '#eeeeee',
-    },
-    secondary: {
-      light: '#4f83cc',
-      main: '#01579b',
-      dark: '#002f6c',
-      contrastText: '#eeeeee',
-    },
   },
   typography: {
     fontFamily: [
+      'Menlo',
       'Consolas',
       'Courier New',
       '-apple-system',

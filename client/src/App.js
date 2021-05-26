@@ -24,6 +24,7 @@ import SettingsItem from "./SettingsItem" // used in the side drawer for picking
 // Material UI component imports
 // -----------------------------
 import { AppBar, Button, Drawer, TextField, Input, Switch, Select } from "@material-ui/core"
+import { Stepper, Step, StepLabel, StepContent } from "@material-ui/core"
 import { ThemeProvider } from "@material-ui/core/styles"
 
 // ---------------------
@@ -231,12 +232,30 @@ function App() {
         <div id="landing-page">
           <div id="landing-page-column">
             <h1>SideWindow</h1>
-              <p>Click "Connect to Server" in the SideWindow VS Code extension, and enter the room code below: </p>
-              <div id="landing-page-connection-group">
-                <input placeholder='Room' onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
-                <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect!</Button>
+              <div id="stepper-container">
+                {/* <Stepper orientation="vertical">
+                  <Step active={true}>
+                    <StepLabel>Install the <a href="https://alextobias.github.io">SideWindow VS Code extension</a>.</StepLabel>
+                  </Step>
+                  <Step active={true}>
+                    <StepLabel>Open the extension menu and click 'Share Current File'.</StepLabel>
+                  </Step>
+                  <Step active={true}>
+                    <StepLabel>Enter the room code below!</StepLabel>
+                  </Step>
+                </Stepper> */}
               </div>
+              <p>To get started, install the SideWindow VS Code extension, and click 'Share Current File'. Then, enter the room code below: </p>
               <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p>
+              <div id="landing-page-connection-group">
+                <div id="landing-page-room-input-container">
+                  <input id="landing-page-room-input" placeholder='Enter room here...' maxLength={4} onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
+                </div>
+                <div id="landing-page-connect-button-container">
+                  <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect!</Button>
+                </div>
+              </div>
+              <p>{connectionStatus}</p>
               <Button variant="contained" color="secondary" onClick={() => {setIsLandingOpen(false)}}>Go straight to editor</Button>
           </div>
         </div>
@@ -246,20 +265,26 @@ function App() {
           {/* <div class="editor-bar-group" id="editor-bar-title">
           </div> */}
           <div class="editor-bar-group" id="editor-bar-connection-group">
-            <div class="editor-bar-inner-item" id="editor-bar-logo-text"><strong>SideWindow</strong></div>
-            {debugMode? 
-              <>
-                <input label="Host" placeholder={"http://localhost/"} onChange={handleAddressChange}></input>
-                <input label="Port" placeholder={"5000"} onChange={handlePortChange}></input>
-              </> : null}
-            <input class="editor-bar-inner-item" size="small" variant="outlined" label="Room" onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
-            <div class="editor-bar-inner-item">
+            {/* <div class="editor-bar-inner-item" id="editor-bar-logo-text"><strong>SideWindow</strong></div> */}
+            <div class="editor-bar-inner-item" id="editor-bar-connection-input-group">
+              <div id="editor-bar-connect-button-container">
               {!isSocketConnected ? 
                 <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect</Button>
                 :
                 <Button variant="contained" color="secondary" size="small" onClick={disconnectSocket}>Disconnect</Button>
               }
-            </div>
+              </div>
+              {debugMode? 
+                <>
+                  <input label="Host" placeholder={"http://localhost/"} onChange={handleAddressChange}></input>
+                  <input label="Port" placeholder={"5000"} onChange={handlePortChange}></input>
+                </> : null}
+                <div class="editor-bar-inner-item" id="editor-bar-room-container">
+                  <input class="editor-bar-inner-item" id="editor-bar-room-field" size="small" maxLength={4} variant="outlined" label="Room" placeholder="Enter room here..." onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
+                </div>
+              </div>
+          </div>
+          <div class="editor-bar-group" id="editor-bar-status-container">
             <div class="editor-bar-inner-item" id="editor-bar-connection-status">{connectionStatus}</div>
           </div>
           <div class="editor-bar-group" id="editor-bar-settings-group">
@@ -280,9 +305,11 @@ function App() {
             </div>
             <div class="drawer-contents-group" id="drawer-info-group">
               <div><strong>SideWindow</strong></div>
+              <div>You'll need the VS Code extension to use this client.</div>
+              <div>Get it <a href="https://github.com/alextobias">here</a>.</div>
               <div>Created by <a href="https://github.com/alextobias">alextobias</a>.</div>
               {/* DEBUG - take out for production */}
-              <Switch checked={debugMode} onChange={(e) => setDebugMode(e.target.checked)}></Switch>
+              {/* <Switch checked={debugMode} onChange={(e) => setDebugMode(e.target.checked)}></Switch> */}
             </div>
           </div>
         </Drawer>

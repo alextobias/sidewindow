@@ -11,7 +11,7 @@ $secondaryDark: #002f6c;
 
 .App {
     background-color: $primaryMain;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Menlo"
 }
 
 a {
@@ -19,7 +19,7 @@ a {
 }
 
 #landing-page {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Menlo";
     height: 100vh;
     display: flex;
     flex-direction: row;
@@ -39,9 +39,25 @@ a {
 }
 
 #landing-page-connection-group {
-    * {
-        margin: 5px;
-    }
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+
+#landing-page-room-input-container {
+    height: 100%;
+}
+
+#landing-page-room-input {
+    box-sizing: border-box;
+    height: 100%;
+    text-align: center;
+}
+
+#landing-page-connect-button-container {
 }
 
 #editor-view-page {
@@ -76,11 +92,31 @@ a {
 }
 
 .editor-bar-inner-item {
-    margin: 5px;
+    // height: 100%;
+}
+
+#editor-bar-room-field {
+    // width: 70px;
+    box-sizing: border-box;
+    height: 100%;
+    text-align: center;
 }
 
 #editor-bar-connection-group {
     flex-wrap: wrap;
+}
+
+#editor-bar-connection-input-group {
+    display: flex;
+    flex-direction: row;
+    // background-color: $secondaryMain;
+    margin-right: 20px;
+}
+
+#editor-bar-room-container {
+    display: flex;
+    background-color: $secondaryMain;
+    // padding: 20px;
 }
 
 #editor-container {
@@ -120,6 +156,7 @@ a {
 .settings-item-container {
     padding-top: 8px;
     padding-bottom: 8px;
+    font-family: 'Menlo';
 }
 
 .settings-item-title {
