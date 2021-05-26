@@ -53,7 +53,7 @@ a {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 30px;
+    height: 36px;
 }
 
 #landing-page-room-input-container {
@@ -64,9 +64,11 @@ a {
     box-sizing: border-box;
     height: 100%;
     text-align: center;
+    // font-family: "Menlo";
 }
 
-#landing-page-connect-button-container {
+#lift-drawer-button-container {
+    padding-top: 30px;
 }
 
 #editor-view-page {

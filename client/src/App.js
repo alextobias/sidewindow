@@ -69,7 +69,8 @@ function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   // Editor configuration state variables
-  const [editorContents, setEditorContents] = useState("console.log('hello world!') \n\nNot much use editing here without being connected.... \n\nIn your VS Code extension, hit 'Start Sharing', and enter the code above! \n\nDon't have the extension? Go to alextobias.me to get it now!")
+  const [editorContents, setEditorContents] = useState("#README.md\n\nWelcome to SideWindow!\n\nSideWindow makes it easy to remotely view and edit a file you have open in VS Code.\n\nInstall the VS Code extension, and in it, select 'Share Current File'.\nThen, enter the room ID above!\n\nTo change settings like font size, syntax highlighting and editor theme,\nuse the settings button in the top right!")
+  // const [editorContents, setEditorContents] = useState("...\nconsole.log('hello world!') \n\nNot much use editing here without being connected.... \n\nIn your VS Code extension, hit 'Start Sharing', and enter the code above! \n\nDon't have the extension? Go to alextobias.me to get it now!")
   const [editorLanguage, setEditorLanguage] = useState(defaultEditorLanguage)
   const [editorTheme, setEditorTheme] = useState(defaultEditorTheme)
   const [editorFontSize, setEditorFontSize] = useState(defaultEditorFontSize)
@@ -251,10 +252,10 @@ function App() {
                     <StyledStepLabel active={true}>Install the <a href="https://alextobias.github.io">SideWindow VS Code extension</a>.</StyledStepLabel>
                   </Step>
                   <Step>
-                    <StyledStepLabel active={true}>Open the extension menu and click 'Share Current File'.</StyledStepLabel>
+                    <StyledStepLabel active={true}>In the extension, click 'Share Current File'.</StyledStepLabel>
                   </Step>
                   <Step>
-                    <StyledStepLabel active={true}>Enter the room code below!</StyledStepLabel>
+                    <StyledStepLabel active={true}>Enter the room ID below, and click 'Connect'!</StyledStepLabel>
                   </Step>
                 </Stepper>
               </div>
@@ -270,12 +271,14 @@ function App() {
                   <input id="landing-page-room-input" placeholder='Enter room here...' maxLength={4} onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
                 </div>
                 <div id="landing-page-connect-button-container">
-                  <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect!</Button>
+                  <Button variant="contained" color="secondary" onClick={initConnection}>Connect!</Button>
                 </div>
               </div>
               <p>{connectionStatus}</p>
-              <Button variant="contained" color="secondary" onClick={() => {setIsLandingOpen(false)}}>Go straight to editor</Button>
-              <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p>
+              <div id="lift-drawer-button-container">
+                <Button variant="contained" size="small" color="tertiary" onClick={() => {setIsLandingOpen(false)}}>Or, view editor</Button>
+              </div>
+              {/* <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p> */}
           </div>
         </div>
       </Drawer>
