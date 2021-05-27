@@ -280,7 +280,7 @@ function App() {
             </div>
             <div id="landing-page-connection-status">{connectionStatus}</div>
             <div id="lift-drawer-button-container">
-              <Button variant="contained" size="small" color="tertiary" onClick={() => {setIsLandingOpen(false)}}>Or, view editor</Button>
+              <Button variant="contained" color="tertiary" onClick={() => {setIsLandingOpen(false)}}>Or, view editor</Button>
             </div>
             {/* <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p> */}
           </div>
@@ -292,9 +292,9 @@ function App() {
             <div class="editor-bar-inner-item" id="editor-bar-connection-input-group">
               <div id="editor-bar-connect-button-container">
               {!isSocketConnected ? 
-                <Button variant="contained" color="secondary" size="small" onClick={initConnection}>Connect</Button>
+                <Button variant="contained" color="secondary" onClick={initConnection}>Connect</Button>
                 :
-                <Button variant="contained" color="secondary" size="small" onClick={disconnectSocket}>Disconnect</Button>
+                <Button variant="contained" color="secondary" onClick={disconnectSocket}>Disconnect</Button>
               }
               </div>
               {debugMode? 
@@ -309,9 +309,9 @@ function App() {
           </div>
           <div class="editor-bar-group" id="editor-bar-settings-group">
             <div class="editor-bar-inner-item" id="editor-bar-settings-button-container">
-            {debugMode? <Button variant="contained" color="secondary" size="small" onClick={() => setIsLandingOpen(true)}>Open Landing</Button> : null}
+            {debugMode? <Button variant="contained" color="secondary" onClick={() => setIsLandingOpen(true)}>Open Landing</Button> : null}
             {/* debug mode switch */}
-              <Button variant="contained" color="secondary" size="small" onClick={() => setIsDrawerOpen(true)}>Settings</Button>
+              <Button variant="contained" color="secondary" onClick={() => setIsDrawerOpen(true)}>Settings</Button>
             </div>
           </div>
         </AppBar>
