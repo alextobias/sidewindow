@@ -34,10 +34,10 @@ import "ace-builds/src-noconflict/theme-solarized_dark";
 import "ace-builds/src-noconflict/theme-solarized_light";
 import "ace-builds/src-noconflict/theme-terminal";
 
-const editorLanguages = ["java", "javascript", "python", "c_cpp", "json"]
-const defaultEditorLanguage = "javascript"
+const editorLanguages = ["markdown", "text", "java", "javascript", "python", "c_cpp", "json"]
+const defaultEditorLanguage = "markdown"
 
-const editorThemes = ["github", "tomorrow", "kuroir", "twilight", "xcode", "textmate", "solarized_dark", "solarized_light", "terminal"]
+const editorThemes = ["github", "tomorrow", "kuroir", "twilight", "xcode", "textmate", "solarized_dark", "solarized_light", "terminal", "monokai"]
 const defaultEditorTheme = "twilight"
 
 const editorFontSizes = Array.from(Array(21).keys()).map((n) => n + 10)
