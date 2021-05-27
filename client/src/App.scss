@@ -1,5 +1,6 @@
 $backgroundPrimary: #282c34;
 $highlightColor: #129384;
+// $foregroundText: rgba(255, 255, 0, 1);
 $foregroundText: lightgrey;
 
 $primaryMain: #263238;
@@ -9,17 +10,43 @@ $secondaryMain: #01579b;
 $secondaryLight: #4f83cc;
 $secondaryDark: #002f6c;
 
+// because of the unfortunate way I'm using material ui,
+// some elements are styled here, and some in MuiStyles.js
+
+// most of the layout styling is done here, such as:
+// - anything styled with flexbox for layout
+// - containers in the AppBars and drawer elements
+
+// what's styled in MuiStyles.js:
+// - MuiTheme styling for Mui element consistency
+//     - e.g. buttons, which have border radius 0, and have the 'secondary' color variant
+//     
+
+// where possible, I've tried to enforce styling through this file
+// e.g. AppBar and drawers are colored with MuiTheme by default,
+// but can be overriden by drawing an inner container with a color
+// plus fonts in the classnames here
+
+// places where Mui styling MUST be used are for things like buttons, some drawer styling elements, stepper inner elements
+
+
+// such as the styling of the step-list on the landing page
+
 .App {
     background-color: $primaryMain;
-    font-family: "Menlo"
+    color: $foregroundText;
+    font-family: 'Monaco';
 }
 
 a {
     color: $secondaryLight;
 }
 
+.transparentPaper {
+    opacity: 0.9
+}
+
 #landing-page {
-    font-family: "Menlo";
     height: 100vh;
     display: flex;
     flex-direction: row;
@@ -39,6 +66,7 @@ a {
 }
 
 #landing-stepper {
+    // opacity: 0.3;
     background-color: $primaryMain;
     max-width: 600px;
 }
@@ -64,7 +92,6 @@ a {
     box-sizing: border-box;
     height: 100%;
     text-align: center;
-    // font-family: "Menlo";
 }
 
 #lift-drawer-button-container {
@@ -101,6 +128,7 @@ a {
 #editor-bar-connection-status {
     font-size: 14px;
     padding: 4px;
+    color: $foregroundText;
 }
 
 #editor-top-bar {
@@ -108,6 +136,7 @@ a {
     flex-direction: row;
     // align-items: stretch;
     justify-content: space-between;
+    background-color: $primaryMain;
     // flex-wrap: wrap;
 }
 
@@ -190,7 +219,6 @@ a {
 .settings-item-container {
     padding-top: 8px;
     padding-bottom: 8px;
-    font-family: 'Menlo';
 }
 
 .settings-item-title {

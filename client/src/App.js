@@ -69,8 +69,8 @@ function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   // Editor configuration state variables
-  const [editorContents, setEditorContents] = useState("#README.md\n\nWelcome to SideWindow!\n\nSideWindow makes it easy to remotely view and edit a file you have open in VS Code.\n\nInstall the VS Code extension, and in it, select 'Share Current File'.\nThen, enter the room ID above!\n\nTo change settings like font size, syntax highlighting and editor theme,\nuse the settings button in the top right!")
-  // const [editorContents, setEditorContents] = useState("...\nconsole.log('hello world!') \n\nNot much use editing here without being connected.... \n\nIn your VS Code extension, hit 'Start Sharing', and enter the code above! \n\nDon't have the extension? Go to alextobias.me to get it now!")
+  const [editorContents, setEditorContents] = useState("#README.md\n\nWelcome to *SideWindow*!\n\nSideWindow makes it easy to remotely view and edit a file you have open in VS Code.\n\nInstall the VS Code extension, and in it, select 'Share Current File'.\nThen, enter the room ID above!\n\nGet the extension here: *https://alextobias.github.io*\n\nTo change settings like font size, syntax highlighting and editor theme,\nuse the *settings button* in the top right!")
+  // const [editorContents, setEditorContents] = useState("...\nconsole.log('hello world!')")
   const [editorLanguage, setEditorLanguage] = useState(defaultEditorLanguage)
   const [editorTheme, setEditorTheme] = useState(defaultEditorTheme)
   const [editorFontSize, setEditorFontSize] = useState(defaultEditorFontSize)
@@ -231,7 +231,7 @@ function App() {
     <div className="App">
       {/* component for overlay page will go here */}
       {/* for now, just implement ace editor and go from there */}
-      <Drawer 
+      <Drawer className={"transparentPaper"}
         anchor="top" 
         id="landing-overlay" 
         elevation={20} 
@@ -321,8 +321,6 @@ function App() {
             </div>
             <div class="drawer-contents-group" id="drawer-info-group">
               <div><strong>SideWindow</strong></div>
-              <div>You'll need the VS Code extension to use this client.</div>
-              <div>Get it <a href="https://github.com/alextobias">here</a>.</div>
               <div>Created by <a href="https://github.com/alextobias">alextobias</a>.</div>
               {/* DEBUG - take out for production */}
               {/* <Switch checked={debugMode} onChange={(e) => setDebugMode(e.target.checked)}></Switch> */}
