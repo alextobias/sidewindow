@@ -1,6 +1,5 @@
 $backgroundPrimary: #282c34;
 $highlightColor: #129384;
-// $foregroundText: rgba(255, 255, 0, 1);
 $foregroundText: lightgrey;
 
 $primaryMain: #263238;
@@ -9,6 +8,10 @@ $primaryDark: #000a12;
 $secondaryMain: #01579b;
 $secondaryLight: #4f83cc;
 $secondaryDark: #002f6c;
+
+
+// font imports (maybe move this out to a fonts.scss)
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&family=Roboto&family=Roboto+Mono:ital,wght@0,400;1,400;1,500;1,600&family=Source+Sans+Pro&display=swap');
 
 // because of the unfortunate way I'm using material ui,
 // some elements are styled here, and some in MuiStyles.js
@@ -35,11 +38,31 @@ $secondaryDark: #002f6c;
 .App {
     background-color: $primaryMain;
     color: $foregroundText;
-    font-family: 'Monaco';
+    font-family: 'Roboto';
 }
 
 a {
     color: $secondaryLight;
+}
+
+.logo-text {
+    font-family: "Roboto Mono", monospace;
+    font-style: italic;
+    font-weight: 600;
+}
+
+#title-text {
+    font-size: 38px;
+}
+
+.title-side {
+    color: lightgrey;
+    // color: $secondaryLight;
+}
+
+.title-window {
+    color: lightgrey;
+    // color: $secondaryLight;
 }
 
 .transparentPaper {
@@ -84,6 +107,13 @@ a {
     height: 36px;
 }
 
+#landing-page-connection-status {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-family: "Roboto Mono", monospace;
+    font-style: italic;
+}
+
 #landing-page-room-input-container {
     height: 100%;
 }
@@ -95,7 +125,7 @@ a {
 }
 
 #lift-drawer-button-container {
-    padding-top: 30px;
+    padding-top: 15px;
 }
 
 #editor-view-page {
@@ -129,6 +159,8 @@ a {
     font-size: 14px;
     padding: 4px;
     color: $foregroundText;
+    font-family: "Roboto Mono", monospace;
+    font-style: italic;
 }
 
 #editor-top-bar {
@@ -200,6 +232,10 @@ a {
     padding: 20px;
 }
 
+#drawer-info-logo-text {
+    font-size: 16px;
+}
+
 #drawer-info-group {
     color: $foregroundText;
     display: flex;
@@ -207,6 +243,8 @@ a {
     align-items: center;
     justify-content: center;
     text-align: center;
+    font-family: "Roboto";
+    font-size: 13px;
 }
 
 #drawer-settings-group {

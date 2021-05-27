@@ -50,10 +50,10 @@ const StyledStepLabel = styled(StepLabel)({
     paddingRight: "20px"
   },
   "& .MuiSvgIcon-root": {
-    color: "#01579b"
+    color: "#01579b" // secondary Main
   },
   "& .MuiTypography-root": {
-    color: "#FFFFFF"
+    color: "lightgrey"
   }
 })
 
@@ -247,40 +247,42 @@ function App() {
         >
         <div id="landing-page">
           <div id="landing-page-column">
-            <h1>SideWindow</h1>
-              <div id="stepper-container">
-                <Stepper className={styleClasses.root} id="landing-stepper" orientation="vertical">
-                  <Step>
-                    <StyledStepLabel active={true}>Install the <a href="https://alextobias.github.io">SideWindow VS Code extension</a>.</StyledStepLabel>
-                  </Step>
-                  <Step>
-                    <StyledStepLabel active={true}>In the extension, click 'Share Current File'.</StyledStepLabel>
-                  </Step>
-                  <Step>
-                    <StyledStepLabel active={true}>Enter the room ID below, and click 'Connect'!</StyledStepLabel>
-                  </Step>
-                </Stepper>
+            <div class="logo-text" id="title-text">
+              <span class="title-side">Side</span><span class="title-window">Window</span>
+            </div>
+            <div id="stepper-container">
+              <Stepper className={styleClasses.root} id="landing-stepper" orientation="vertical">
+                <Step>
+                  <StyledStepLabel active={true}>Install the <a href="https://alextobias.github.io">SideWindow VS Code extension</a>.</StyledStepLabel>
+                </Step>
+                <Step>
+                  <StyledStepLabel active={true}>In the extension, click 'Share Current File'.</StyledStepLabel>
+                </Step>
+                <Step>
+                  <StyledStepLabel active={true}>Enter the room ID below, and click 'Connect'!</StyledStepLabel>
+                </Step>
+              </Stepper>
+            </div>
+            {/* <p>Welcome to SideWindow!</p> */}
+            {/* <ol>
+              <li>Install the SideWindow VS Code Extension.</li>
+              <li>In the extension, click 'Share Current File'.</li>
+              <li>Enter the room code below!</li>
+            </ol> */}
+            {/* <p>To get started, install the SideWindow VS Code extension, and click 'Share Current File'. Then, enter the room code below: </p> */}
+            <div id="landing-page-connection-group">
+              <div id="landing-page-room-input-container">
+                <input id="landing-page-room-input" placeholder='Enter room here...' maxLength={4} onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
               </div>
-              {/* <p>Welcome to SideWindow!</p> */}
-              {/* <ol>
-                <li>Install the SideWindow VS Code Extension.</li>
-                <li>In the extension, click 'Share Current File'.</li>
-                <li>Enter the room code below!</li>
-              </ol> */}
-              {/* <p>To get started, install the SideWindow VS Code extension, and click 'Share Current File'. Then, enter the room code below: </p> */}
-              <div id="landing-page-connection-group">
-                <div id="landing-page-room-input-container">
-                  <input id="landing-page-room-input" placeholder='Enter room here...' maxLength={4} onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
-                </div>
-                <div id="landing-page-connect-button-container">
-                  <Button variant="contained" color="secondary" onClick={initConnection}>Connect!</Button>
-                </div>
+              <div id="landing-page-connect-button-container">
+                <Button variant="contained" color="secondary" onClick={initConnection}>Connect!</Button>
               </div>
-              <p>{connectionStatus}</p>
-              <div id="lift-drawer-button-container">
-                <Button variant="contained" size="small" color="tertiary" onClick={() => {setIsLandingOpen(false)}}>Or, view editor</Button>
-              </div>
-              {/* <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p> */}
+            </div>
+            <div id="landing-page-connection-status">{connectionStatus}</div>
+            <div id="lift-drawer-button-container">
+              <Button variant="contained" size="small" color="tertiary" onClick={() => {setIsLandingOpen(false)}}>Or, view editor</Button>
+            </div>
+            {/* <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p> */}
           </div>
         </div>
       </Drawer>
@@ -322,8 +324,10 @@ function App() {
               <SettingsItem title="Font Size" value={editorFontSize} setterFunction={setEditorFontSize} possibleValues={editorFontSizes} ></SettingsItem>
             </div>
             <div class="drawer-contents-group" id="drawer-info-group">
-              <div><strong>SideWindow</strong></div>
-              <div>Created by <a href="https://github.com/alextobias">alextobias</a>.</div>
+              <div class="logo-text" id="drawer-info-logo-text">
+                <span class="title-side">Side</span><span class="title-window">Window</span>
+              </div>
+              <div>is by <a href="https://github.com/alextobias">alextobias</a>.</div>
               {/* DEBUG - take out for production */}
               {/* <Switch checked={debugMode} onChange={(e) => setDebugMode(e.target.checked)}></Switch> */}
             </div>
