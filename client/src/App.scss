@@ -11,7 +11,7 @@ $secondaryDark: #002f6c;
 
 
 // font imports (maybe move this out to a fonts.scss)
-@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&family=Roboto&family=Roboto+Mono:ital,wght@0,400;1,400;1,500;1,600&family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&family=Pattaya&family=Roboto&family=Roboto+Mono:ital,wght@0,400;1,400;1,500;1,600&family=Source+Sans+Pro&display=swap');
 
 // because of the unfortunate way I'm using material ui,
 // some elements are styled here, and some in MuiStyles.js
@@ -46,6 +46,7 @@ a {
 }
 
 .logo-text {
+    // font-family: "Pattaya";
     font-family: "Roboto Mono", monospace;
     font-style: italic;
     font-weight: 600;
@@ -233,7 +234,7 @@ a {
 }
 
 #drawer-info-logo-text {
-    font-size: 16px;
+    font-size: 18px;
 }
 
 #drawer-info-group {
@@ -244,7 +245,7 @@ a {
     justify-content: center;
     text-align: center;
     font-family: "Roboto";
-    font-size: 13px;
+    font-size: 15px;
 }
 
 #drawer-settings-group {
@@ -261,6 +262,7 @@ a {
 
 .settings-item-title {
     // padding: 5px;
+    font-family: "Roboto";
 }
 
 #drawer-info-group {

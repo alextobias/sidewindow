@@ -82,7 +82,10 @@ const theme = createMuiTheme({
         // color: "blue"
       },
       selectMenu: {
-        // color: "lightgrey"
+        color: "lightgrey",
+        typography: {
+          fontFamily: "Pattaya"
+        }
       }
     },
     MuiButton: {
@@ -92,7 +95,7 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: "Roboto",
+    fontFamily: "Roboto Mono",
   //   fontFamily: [
   //     'serif',
   //     'Consolas',
