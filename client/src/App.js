@@ -60,8 +60,10 @@ const StyledStepLabel = styled(StepLabel)({
 function App() {
 
   // Variables used for debug mode - take out for production
-  const [address, setAddress] = useState("http://localhost")
-  const [port, setPort] = useState("5000")
+  // const [address, setAddress] = useState("http://localhost")
+  const [address, setAddress] = useState("https://sidewindow.herokuapp.com")
+  // const [port, setPort] = useState("5000")
+  const [port, setPort] = useState("")
   const [debugMode, setDebugMode] = useState(false)
 
   // General layout state variables
@@ -338,7 +340,7 @@ function App() {
             value={editorContents}
             onChange={handleEditorChange}
             showGutter={true}
-            debounceChangePeriod={250}
+            // debounceChangePeriod={250}
           >
           </AceEditor>
         </div>
