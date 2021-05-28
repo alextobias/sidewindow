@@ -1,19 +1,27 @@
 // MUI-related styling will go in this folder
 // Generally, I'd prefer to do styling using SASS/CSS
+import { yellow } from "@material-ui/core/colors";
 import { createMuiTheme, makeStyles } from  "@material-ui/core/styles"
 
 
 // I'm not *certain* that any of these are used
 // that's why I've got these non-theme colors
 // so I can immediately identify what's being used here
+
+// TODO: clean this up - determine exactly where this is used,
+// versus where the scss is used
 const useStyles = makeStyles({
+  stepperPaper: {
+    backgroundColor: "red",
+  },
+  stepperRoot: {
+    backgroundColor: "blue"
+  },
   root: {
-    backgroundColor: "orange",
-    color: "green"
+    // backgroundColor: "orange",
   },
   label: {
     backgroundColor: "red",
-    color: "orange",
   },
   iconContainer: {
     color: "purple",
@@ -27,6 +35,18 @@ const useStyles = makeStyles({
     }
   },
   // I tried using this to make the landing page transparent
+  landingRoot: {
+    color: "purple",
+    backgroundColor: "rgba(255,0,0,0)",
+  },
+  landingPaper: {
+    color: "yellow",
+    backgroundColor: "rgba(0,255,0,0)",
+  },
+  landingModal: {
+    color: "green",
+    backgroundColor: "rgba(0,0,255,0)",
+  },
   transparentPaper: {
     // opacity: 0.8,
     // backgroundColor: "red",

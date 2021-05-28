@@ -9,6 +9,8 @@ $secondaryMain: #01579b;
 $secondaryLight: #4f83cc;
 $secondaryDark: #002f6c;
 
+$primaryMain-transparent: rgba(38, 50, 56, 0.7);
+
 
 // font imports (maybe move this out to a fonts.scss)
 
@@ -70,8 +72,9 @@ a {
     // color: $secondaryLight;
 }
 
-.transparentPaper {
-    opacity: 0.9
+.landingDrawerRoot {
+    background-color: rgba(0,0,0,0);
+    // opacity: 0.9
 }
 
 #landing-page {
@@ -80,7 +83,7 @@ a {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: $primaryMain;
+    background-color: $primaryMain-transparent;
     color: $foregroundText;
 }
 
@@ -95,8 +98,8 @@ a {
 
 #landing-stepper {
     // opacity: 0.3;
-    background-color: $primaryMain;
     max-width: 600px;
+    background-color: rgba(0,0,0,0);
 }
 
 .landing-step-label {

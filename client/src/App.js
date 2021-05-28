@@ -214,7 +214,7 @@ function App() {
     <div className="App">
       {/* component for overlay page will go here */}
       {/* for now, just implement ace editor and go from there */}
-      <Drawer className={"transparentPaper"}
+      <Drawer classes={{root: styleClasses.landingRoot, modal: styleClasses.landingModal, paper: styleClasses.landingPaper}}
         anchor="top" 
         id="landing-overlay" 
         elevation={20} 
@@ -232,7 +232,7 @@ function App() {
               <span class="title-side">Side</span><span class="title-window">Window</span>
             </div>
             <div id="stepper-container">
-              <Stepper className={styleClasses.root} id="landing-stepper" orientation="vertical">
+              <Stepper id="landing-stepper" orientation="vertical">
                 <Step>
                   <StyledStepLabel active={true}>Install the <a href="[TODO: LINK TO EXTENSION HERE]">SideWindow VS Code extension</a>.</StyledStepLabel>
                 </Step>
