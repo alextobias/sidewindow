@@ -18,19 +18,20 @@ import AceEditor from "react-ace";
 // --------------------
 // my component imports
 // --------------------
-import SettingsItem from "./SettingsItem" // used in the side drawer for picking editor theme, language etc
+import SettingsItem from "./components/SettingsItem"; // used in the side drawer for picking editor theme, language etc
+import StyledStepLabel from "./components/StyledStepLabel"; // used in the side drawer for picking editor theme, language etc
 
 // -----------------------------
 // Material UI component imports
 // -----------------------------
-import { AppBar, Button, Drawer, TextField, Input, Switch, Select } from "@material-ui/core"
-import { Stepper, Step, StepLabel, StepContent } from "@material-ui/core"
-import { styled, ThemeProvider } from "@material-ui/core/styles"
+import { AppBar, Button, Drawer, TextField, Input, Switch, Select } from "@material-ui/core";
+import { Stepper, Step } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core/styles";
 
 // ---------------------
 // Editor config imports
 // ---------------------
-import {editorLanguages, editorThemes, editorFontSizes, defaultEditorLanguage, defaultEditorTheme, defaultEditorFontSize} from "./EditorOptions"
+import {editorLanguages, editorThemes, editorFontSizes, defaultEditorLanguage, defaultEditorTheme, defaultEditorFontSize} from "./EditorOptions";
 
 // -------------
 // Style imports
@@ -43,27 +44,13 @@ import { theme, useStyles } from "./MuiStyles"
 // this is so that I can identify which are my own components
 // but components that I make myself will follow the CamelCase convention
 
-// simply AWFUL workaround
-// but maybe I can build on this
-const StyledStepLabel = styled(StepLabel)({
-  "& .MuiStepLabel-iconContainer": {
-    paddingRight: "20px"
-  },
-  "& .MuiSvgIcon-root": {
-    color: "#01579b" // secondary Main
-  },
-  "& .MuiTypography-root": {
-    color: "lightgrey"
-  }
-})
-
 function App() {
 
   // Variables used for debug mode - take out for production
-  // const [address, setAddress] = useState("http://localhost")
-  const [address, setAddress] = useState("https://sidewindow.herokuapp.com")
-  // const [port, setPort] = useState("5000")
-  const [port, setPort] = useState("")
+  const [address, setAddress] = useState("http://localhost")
+  // const [address, setAddress] = useState("https://sidewindow.herokuapp.com")
+  const [port, setPort] = useState("5000")
+  // const [port, setPort] = useState("")
   const [debugMode, setDebugMode] = useState(false)
 
   // General layout state variables
