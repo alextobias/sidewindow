@@ -172,13 +172,14 @@ function App() {
       console.log("> got disconnected from server")
       setConnectionStatus("Disconnected.")
       // TODO: get rid of this and use socket.connected
+      // addendum: we shall see .... if it works, maybe don't break it
       setIsSocketConnected(false)
     })
   }
 
   function handleEditorChange(contents) {
-    console.log("> EDITOR: Got editor change:")
-    console.log(`contents passed in: ${contents}`)
+    // console.log("> EDITOR: Got editor change:")
+    // console.log(`contents passed in: ${contents}`)
     setEditorContents(contents)
     if(isSocketConnected) {
       console.log(`> emitting [browser:edits]: ${contents}`) 
@@ -186,22 +187,13 @@ function App() {
     }
   }
 
-  function handleAddressChange(event) {
-    console.log("Got input to address field.")
-    console.log("Result: " + event.target.value)
-    setAddress(event.target.value)
-  }
-
-  function handlePortChange(event) {
-    console.log("Got input to port field.")
-    console.log("Result: " + event.target.value)
-    setPort(event.target.value)
-  }
-
-  function handleRoomChange(event) {
-    console.log("Got input to room field.")
-    console.log("Result: " + event.target.value)
-    setRoom(event.target.value)
+  // used as a higher-order function for responding to input change events
+  // specifically for address, port, room fields
+  function handleChangeFunc(setterFunc, fieldName) {
+    return function (e) {
+      console.log(`Got input to ${fieldName}: ${e.target.value}`);
+      setterFunc(e.target.value)
+    }
   }
 
   function disconnectSocket(event) {
@@ -259,7 +251,7 @@ function App() {
             {/* <p>To get started, install the SideWindow VS Code extension, and click 'Share Current File'. Then, enter the room code below: </p> */}
             <div id="landing-page-connection-group">
               <div id="landing-page-room-input-container">
-                <input id="landing-page-room-input" placeholder='Enter room here...' maxLength={4} onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
+                <input id="landing-page-room-input" placeholder='Enter room here...' maxLength={4} onChange={handleChangeFunc(setRoom, "landing-room")} disabled={isSocketConnected} value={room}></input>
               </div>
               <div id="landing-page-connect-button-container">
                 <Button variant="contained" color="secondary" onClick={initConnection}>Connect!</Button>
@@ -286,11 +278,11 @@ function App() {
               </div>
               {debugMode? 
                 <>
-                  <input label="Host" placeholder={"http://localhost/"} onChange={handleAddressChange}></input>
-                  <input label="Port" placeholder={"5000"} onChange={handlePortChange}></input>
+                  <input label="Host" placeholder={"http://localhost/"} onChange={handleChangeFunc(setAddress, "debug-address")}></input>
+                  <input label="Port" placeholder={"5000"} onChange={handleChangeFunc(setPort, "debug-port")}></input>
                 </> : null}
                 <div class="editor-bar-inner-item" id="editor-bar-room-container">
-                  <input class="editor-bar-inner-item" id="editor-bar-room-field" size="small" maxLength={4} variant="outlined" label="Room" placeholder="Enter room here..." onChange={handleRoomChange} disabled={isSocketConnected} value={room}></input>
+                  <input class="editor-bar-inner-item" id="editor-bar-room-field" size="small" maxLength={4} variant="outlined" label="Room" placeholder="Enter room here..." onChange={handleChangeFunc(setRoom, "bar-room")} disabled={isSocketConnected} value={room}></input>
                 </div>
               </div>
           </div>
