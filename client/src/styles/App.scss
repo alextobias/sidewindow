@@ -11,7 +11,11 @@ $secondaryDark: #002f6c;
 
 
 // font imports (maybe move this out to a fonts.scss)
+
+// Font imports used in display, components etc
 @import url('https://fonts.googleapis.com/css2?family=Fira+Mono&family=Pattaya&family=Roboto&family=Roboto+Mono:ital,wght@0,400;1,400;1,500;1,600&family=Source+Sans+Pro&display=swap');
+// Font imports used specifically as editor font options
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=Fira+Code&family=Fira+Mono&family=Inconsolata&family=JetBrains+Mono&family=Roboto+Mono&family=Source+Code+Pro&family=Ubuntu+Mono&display=swap');
 
 // because of the unfortunate way I'm using material ui,
 // some elements are styled here, and some in MuiStyles.js
@@ -226,7 +230,7 @@ a {
     justify-content: space-between;
     align-items: center;
     background-color: $primaryLight;
-    width: 200px;
+    width: 220px;
 }
 
 .drawer-contents-group {

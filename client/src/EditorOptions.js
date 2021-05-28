@@ -43,4 +43,7 @@ const defaultEditorTheme = "twilight"
 const editorFontSizes = Array.from(Array(21).keys()).map((n) => n + 10)
 const defaultEditorFontSize = 16;
 
-export {editorLanguages, editorThemes, editorFontSizes, defaultEditorLanguage, defaultEditorTheme, defaultEditorFontSize};
+const editorFontFamilies = ["Courier Prime", "Fira Mono", "Fira Code", "Inconsolata", "JetBrains Mono", "Roboto Mono", "Source Code Pro", "Ubuntu Mono"]
+const defaultEditorFontFamily = "Inconsolata"
+
+export {editorLanguages, editorThemes, editorFontSizes, editorFontFamilies, defaultEditorLanguage, defaultEditorTheme, defaultEditorFontSize, defaultEditorFontFamily};

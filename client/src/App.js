@@ -31,7 +31,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 // ---------------------
 // Editor config imports
 // ---------------------
-import {editorLanguages, editorThemes, editorFontSizes, defaultEditorLanguage, defaultEditorTheme, defaultEditorFontSize} from "./EditorOptions";
+import { editorLanguages, editorThemes, editorFontSizes, editorFontFamilies } from  "./EditorOptions";
+import { defaultEditorLanguage, defaultEditorTheme, defaultEditorFontSize, defaultEditorFontFamily } from "./EditorOptions";
 
 // -------------
 // Style imports
@@ -63,6 +64,7 @@ function App() {
   const [editorLanguage, setEditorLanguage] = useState(defaultEditorLanguage)
   const [editorTheme, setEditorTheme] = useState(defaultEditorTheme)
   const [editorFontSize, setEditorFontSize] = useState(defaultEditorFontSize)
+  const [editorFontFamily, setEditorFontFamily] = useState(defaultEditorFontFamily)
 
   // Connection state variables
   const [socket, setSocket] = useState()
@@ -300,6 +302,7 @@ function App() {
               {/* <Button onClick={() => setIsDrawerOpen(false)}>Close</Button> */}
               <SettingsItem title="Language" value={editorLanguage} setterFunction={setEditorLanguage} possibleValues={editorLanguages} ></SettingsItem>
               <SettingsItem title="Theme" value={editorTheme} setterFunction={setEditorTheme} possibleValues={editorThemes} ></SettingsItem>
+              <SettingsItem title="Font Family" value={editorFontFamily} setterFunction={setEditorFontFamily} possibleValues={editorFontFamilies} ></SettingsItem>
               <SettingsItem title="Font Size" value={editorFontSize} setterFunction={setEditorFontSize} possibleValues={editorFontSizes} ></SettingsItem>
             </div>
             <div class="drawer-contents-group" id="drawer-info-group">
@@ -323,6 +326,7 @@ function App() {
             value={editorContents}
             onChange={handleEditorChange}
             showGutter={true}
+            style={{fontFamily: editorFontFamily}}
             // debounceChangePeriod={250}
           >
           </AceEditor>
