@@ -24,7 +24,7 @@ import StyledStepLabel from "./components/StyledStepLabel"; // used in the side 
 // -----------------------------
 // Material UI component imports
 // -----------------------------
-import { AppBar, Button, Drawer, TextField, Input, Switch, Select } from "@material-ui/core";
+import { AppBar, Button, Drawer } from "@material-ui/core";
 import { Stepper, Step } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 
@@ -36,8 +36,8 @@ import {editorLanguages, editorThemes, editorFontSizes, defaultEditorLanguage, d
 // -------------
 // Style imports
 // -------------
-import './App.scss';
-import { theme, useStyles } from "./MuiStyles"
+import './styles/App.scss';
+import { theme, useStyles } from "./styles/MuiStyles"
 
 
 // naming conventions for element IDs and classes will be lower-hyphen-case
