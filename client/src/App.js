@@ -60,10 +60,10 @@ const StyledStepLabel = styled(StepLabel)({
 function App() {
 
   // Variables used for debug mode - take out for production
-  const [address, setAddress] = useState("http://localhost")
-  // const [address, setAddress] = useState("https://sidewindow.herokuapp.com")
-  const [port, setPort] = useState("5000")
-  // const [port, setPort] = useState("")
+  // const [address, setAddress] = useState("http://localhost")
+  const [address, setAddress] = useState("https://sidewindow.herokuapp.com")
+  // const [port, setPort] = useState("5000")
+  const [port, setPort] = useState("")
   const [debugMode, setDebugMode] = useState(false)
 
   // General layout state variables
@@ -71,7 +71,7 @@ function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   // Editor configuration state variables
-  const [editorContents, setEditorContents] = useState("#README.md\n\nWelcome to *SideWindow*!\n\nSideWindow makes it easy to remotely view and edit a file you have open in VS Code.\n\nInstall the VS Code extension, and in it, select 'Share Current File'.\nThen, enter the room ID above!\n\nGet the extension here: *https://alextobias.github.io*\n\nTo change settings like font size, syntax highlighting and editor theme,\nuse the *settings button* in the top right!")
+  const [editorContents, setEditorContents] = useState("#README.md\n\nWelcome to *SideWindow*!\n\nSideWindow makes it easy to remotely view and edit a file you have open in VS Code.\n\nInstall the VS Code extension, and in it, select 'Share Current File'.\nThen, enter the room ID above!\n\nGet the extension here: *[TODO: LINK TO EXTENSION HERE]*\n\nTo change settings like font size, syntax highlighting and editor theme,\nuse the *settings button* in the top right!")
   // const [editorContents, setEditorContents] = useState("...\nconsole.log('hello world!')")
   const [editorLanguage, setEditorLanguage] = useState(defaultEditorLanguage)
   const [editorTheme, setEditorTheme] = useState(defaultEditorTheme)
@@ -253,7 +253,7 @@ function App() {
             <div id="stepper-container">
               <Stepper className={styleClasses.root} id="landing-stepper" orientation="vertical">
                 <Step>
-                  <StyledStepLabel active={true}>Install the <a href="https://alextobias.github.io">SideWindow VS Code extension</a>.</StyledStepLabel>
+                  <StyledStepLabel active={true}>Install the <a href="[TODO: LINK TO EXTENSION HERE]">SideWindow VS Code extension</a>.</StyledStepLabel>
                 </Step>
                 <Step>
                   <StyledStepLabel active={true}>In the extension, click 'Share Current File'.</StyledStepLabel>
@@ -282,7 +282,7 @@ function App() {
             <div id="lift-drawer-button-container">
               <Button variant="contained" color="tertiary" onClick={() => {setIsLandingOpen(false)}}>Or, view editor</Button>
             </div>
-            {/* <p>Don't have the extension? <a href="https://alextobias.github.io">Get it here.</a></p> */}
+            {/* <p>Don't have the extension? <a href="[TODO: LINK TO EXTENSION HERE]">Get it here.</a></p> */}
           </div>
         </div>
       </Drawer>
