@@ -59,7 +59,7 @@ function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   // Editor configuration state variables
-  const [editorContents, setEditorContents] = useState("#README.md\n\nWelcome to *SideWindow*!\n\nSideWindow makes it easy to remotely view and edit a file you have open in VS Code.\n\nInstall the VS Code extension, and in it, select 'Share Current File'.\nThen, enter the room ID above!\n\nGet the extension here: *[TODO: LINK TO EXTENSION HERE]*\n\nTo change settings like font size, syntax highlighting and editor theme,\nuse the *settings button* in the top right!")
+  const [editorContents, setEditorContents] = useState("Welcome to *SideWindow*!\n\nSideWindow makes it easy to remotely view and edit a file you have open in VS Code.\n\nGet the VS Code extension here: *https://marketplace.visualstudio.com/items?itemName=alextobiasdev.sidewindow*\n\nInstall the extension, and in it, select 'Share Current File'.\nThen, enter the room ID above!\n\nTo change settings like font, syntax highlighting and theme,\nuse the *settings button* in the top right!")
   // const [editorContents, setEditorContents] = useState("...\nconsole.log('hello world!')")
   const [editorLanguage, setEditorLanguage] = useState(defaultEditorLanguage)
   const [editorTheme, setEditorTheme] = useState(defaultEditorTheme)
@@ -234,7 +234,7 @@ function App() {
             <div id="stepper-container">
               <Stepper id="landing-stepper" orientation="vertical">
                 <Step>
-                  <StyledStepLabel active={true}>Install the <a href="[TODO: LINK TO EXTENSION HERE]">SideWindow VS Code extension</a>.</StyledStepLabel>
+                  <StyledStepLabel active={true}>Install the <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=alextobiasdev.sidewindow">SideWindow VS Code extension</a>.</StyledStepLabel>
                 </Step>
                 <Step>
                   <StyledStepLabel active={true}>In the extension, click 'Share Current File'.</StyledStepLabel>
