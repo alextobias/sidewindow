@@ -8,9 +8,12 @@ frontend:
     build:
       commands:
         - npm run build
+    postBuild:
+      commands:
+      - cd build
   artifacts:
     # IMPORTANT - Please verify your build output directory
-    baseDirectory: /client
+    baseDirectory: /client/build
     files:
       - '**/*'
   cache:
