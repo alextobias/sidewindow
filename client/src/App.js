@@ -278,12 +278,9 @@ function App() {
                 <Button variant="contained" color="secondary" onClick={disconnectSocket}>Disconnect</Button>
               }
               </div>
-              {debugMode? 
-                <>
+                <div class="editor-bar-inner-item" id="editor-bar-room-container">
                   <input label="Host" placeholder={"http://localhost/"} onChange={handleChangeFunc(setAddress, "debug-address")}></input>
                   <input label="Port" placeholder={"5000"} onChange={handleChangeFunc(setPort, "debug-port")}></input>
-                </> : null}
-                <div class="editor-bar-inner-item" id="editor-bar-room-container">
                   <input class="editor-bar-inner-item" id="editor-bar-room-field" size="small" maxLength={4} variant="outlined" label="Room" placeholder="Enter room here..." onChange={handleChangeFunc(setRoom, "bar-room")} disabled={isSocketConnected} value={room}></input>
                 </div>
               </div>
