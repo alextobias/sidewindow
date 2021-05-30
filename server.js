@@ -96,7 +96,7 @@ io_server.on('connection', (socket) => {
             console.log(`> No room ${room_id} found.`);
             browser_socket.emit("server:ack", "No room");
             console.log(`> Disconnecting browser socket ${browser_socket.id}.`);
-            socket.disconnect()
+            socket.disconnect(true)
         } else {
             console.log(`> Room ${room_id} match!`)
 
