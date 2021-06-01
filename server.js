@@ -5,6 +5,9 @@ console.log("Process: " + process.env.ROOT_URL)
 let rooms = []
 let sockets = []
 
+const fs = require('fs');
+const {overwriteLog, appendLog, readLogAsync, readLogSync} = require('./debug-logs');
+
 const express = require('express');
 // app is actually a function, passed to http.createServer as a callback to handle requests
 const app = express();
@@ -20,6 +23,10 @@ const socketio_server_options = {
         methods: ["GET", "POST"]
     }
 }
+
+// log start
+overwriteLog("===== SERVER INIT =====");
+
 const io_server = new SocketIOServer(http_server, socketio_server_options)
 // now io_server is the Server instance of socketio
 
@@ -38,18 +45,18 @@ app.get('/extension', (req, res) => {
     res.redirect("https://marketplace.visualstudio.com/items?itemName=alextobiasdev.sidewindow")
 })
 
+app.get('/debug', (req, res) => {
+    res.send(readLogSync())
+})
+
 app.get('/*', (req, res) => {
 	res.redirect("/");
 })
 
 
-app.get('/debug', (req, res) => {
-    // res.send(JSON.stringify(rooms.map( r => r.id)))
-    res.send(JSON.stringify(rooms))
-})
-
 
 io_server.on('connection', (socket) => {
+
     sockets.push(socket)
     console.log('> New Connection from ' + socket.id);
     console.log('> Handshake params:')
@@ -60,10 +67,14 @@ io_server.on('connection', (socket) => {
         console.log("> received connection from extension")
         console.log("> extension socket id is: " + extension_socket.id)
         console.log("> creating room " + extension_socket.id)
+
+
         const room_id = extension_socket.id.slice(0,4)
 
         // use extension id for debug messages
         const extension_id = room_id
+
+        appendLog(`New connection from extension ${extension_id}`)
 
         console.log(">>>> ROOM ID: " + room_id)
         rooms.push(room_id)
@@ -83,6 +94,9 @@ io_server.on('connection', (socket) => {
 
         extension_socket.on("disconnect", (msg) => {
             // also disconnect all browsers connected to this room
+
+            appendLog(`Disconnecting extension ${room_id} and all sockets in room`)
+
             console.log(`> [extension:disconnect] now disconnecting sockets in room ${room_id}`)
             io_server.in(room_id).disconnectSockets(true)
             // remove the room from the list of rooms
@@ -98,17 +112,25 @@ io_server.on('connection', (socket) => {
         console.log("> browser socket id is : " + browser_socket.id);
         console.log("> checking if any rooms match id");
 
+
         const room_id  = browser_socket.handshake.query.room;
         const browser_id = browser_socket.id.slice(0,4)
+
+        appendLog(`New connection from browser ${browser_id} with room ${room_id}`)
 
         // TODO: remove 'debug' room for production
         if (!rooms.includes(room_id) && room_id !== "DBUG") {
             console.log(`> No room ${room_id} found.`);
             browser_socket.emit("server:ack", "No room");
             console.log(`> Disconnecting browser socket ${browser_socket.id}.`);
+
+            appendLog(`Room ${room_id} not found, disconnecting browser ${browser_id}`)
+            
             socket.disconnect(true)
         } else {
             console.log(`> Room ${room_id} match!`)
+
+            appendLog(`Room ${room_id} matches, joining browser ${browser_id} to room`)
 
             // thinking about what I want to do with this section
             // if we're here, then the room exists, and a successful connection can be made
@@ -137,6 +159,11 @@ io_server.on('connection', (socket) => {
             browser_socket.on("browser:edits", (content) => {
                 console.log(`> [browser:edits] ${browser_id} -> "${room_id}": ${content}`)
                 browser_socket.to(room_id).emit("browser:edits", content)
+            })
+
+            browser_socket.on("disconnect", (content) => {
+                console.log(`> [browser:disconnect] ${browser_id} disconnected.`)
+                appendLog(`Browser ${browser_id} disconnected.`)
             })
         } 
     }
