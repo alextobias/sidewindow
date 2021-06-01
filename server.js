@@ -34,14 +34,14 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '/pub/index.html'))
 })
 
+app.get('/extension', (req, res) => {
+    res.redirect("https://marketplace.visualstudio.com/items?itemName=alextobiasdev.sidewindow")
+})
 
 app.get('/*', (req, res) => {
 	res.redirect("/");
 })
 
-app.get('/extension', (req, res) => {
-    res.redirect("https://marketplace.visualstudio.com/items?itemName=alextobiasdev.sidewindow")
-})
 
 app.get('/debug', (req, res) => {
     // res.send(JSON.stringify(rooms.map( r => r.id)))
