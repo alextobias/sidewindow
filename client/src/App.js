@@ -50,7 +50,7 @@ function App() {
   // Variables used for debug mode - take out for production
   // const [address, setAddress] = useState("http://localhost")
   // const [port, setPort] = useState("5000")
-  const [address, setAddress] = useState("https://sidewindow.herokuapp.com")
+  const [address, setAddress] = useState("https://www.sidewindow.xyz")
   const [port, setPort] = useState("")
   const [debugMode, setDebugMode] = useState(false)
 
@@ -59,7 +59,7 @@ function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   // Editor configuration state variables
-  const [editorContents, setEditorContents] = useState("Welcome to *SideWindow*!\n\nSideWindow makes it easy to remotely view and edit a file you have open in VS Code.\n\nGet the VS Code extension here: *https://sidewindow.herokuapp.com/extension*\n\nInstall the extension, and in it, select 'Share Current File'.\nThen, enter the room ID above!\n\nTo change settings like font, syntax highlighting and theme,\nuse the *settings button* in the top right!")
+  const [editorContents, setEditorContents] = useState("Welcome to *SideWindow*!\n\nSideWindow makes it easy to remotely view and edit a file you have open in VS Code.\n\nGet the VS Code extension here: *https://www.sidewindow.xyz/extension*\n\nInstall the extension, and in it, select 'Share Current File'.\nThen, enter the room ID above!\n\nTo change settings like font, syntax highlighting and theme,\nuse the *settings button* in the top right!")
   // const [editorContents, setEditorContents] = useState("...\nconsole.log('hello world!')")
   const [editorLanguage, setEditorLanguage] = useState(defaultEditorLanguage)
   const [editorTheme, setEditorTheme] = useState(defaultEditorTheme)
@@ -234,7 +234,7 @@ function App() {
             <div id="stepper-container">
               <Stepper id="landing-stepper" orientation="vertical">
                 <Step>
-                  <StyledStepLabel active={true}>Install the <a target="_blank" href="https://sidewindow.herokuapp.com/extension">SideWindow VS Code extension</a>.</StyledStepLabel>
+                  <StyledStepLabel active={true}>Install the <a target="_blank" href="https://www.sidewindow.xyz/extension">SideWindow VS Code extension</a>.</StyledStepLabel>
                 </Step>
                 <Step>
                   <StyledStepLabel active={true}>In the extension, click 'Share Current File'.</StyledStepLabel>
